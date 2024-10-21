@@ -1,66 +1,74 @@
-import * as React from 'react';
-import {Box, Grid, Paper, Typography, styled} from '@mui/material';
-import styles from './styles';
+import React from 'react';
+
+import { Box, Typography } from '@mui/material';
+import Image from 'next/image';
+
+import KaiBlob from '@/assets/images/Kai_blob.png';
+import rectangle from '@/assets/svg/Rectangle_Banner_1.svg';
 import ImageURLs from '@/assets/urls';
-import KaiBlob from '@/assets/images/Kai_blob.png'
-import rectangle from '@/assets/svg/Rectangle_Banner_1.svg'
+
+import styles from './styles';
 
 const Banner = () => {
-  const renderLeftArtifacts = () => {
-    <>
-      <Box>
-        <Image
-          {...styles.reXImageProps}
-          src={ImageURLs.MarvelAuthImg}
-          alt="rexImage"
-        />
-        {/* <KaiBlob/> */}
-      </Box>
-    </>
-  };
+  const renderLeftArtifacts = () => (
+    <Box position="relative" width="200px" height="200px" flexShrink={0}>
+      <Image
+        src={ImageURLs.MarvelAuthImg}
+        alt="Marvel"
+        layout="fill"
+        objectFit="contain"
+      />
+    </Box>
+  );
 
-  const renderTitle = () => {
-    return (
-      <Grid {...styles.titleGridProps}>
-        <Typography {...styles.titleProps}>
-          Hello! Welcome to Kai Tools.
-          👋
+  const renderTitle = () => (
+    <Box flex={1} mx={2}>
+      <Typography {...styles.titleProps}>
+        Hello! Welcome to Kai Tools. 👋
+      </Typography>
+      <Typography {...styles.subtitleProps}>
+        Made for{' '}
+        <Typography {...styles.highlightTextProps} component="span">
+          educators
         </Typography>
-        <Typography {...styles.subtitleProps}>
-        Made for <Typography {...styles.highlightTextProps}>educators</Typography>. 
-        Hello! I'm Kai, your AI teaching assistant. 
-        We are here to support you on your journey as a 
-        <Typography {...styles.boldTextProps}> teacher, mentor,</Typography> and 
-        <Typography {...styles.boldTextProps}> more!</Typography>
+        . Hello! I&#39;m Kai, your AI teaching assistant. We are here to support
+        you on your journey as a
+        <Typography {...styles.boldTextProps} component="span">
+          {' '}
+          teacher, mentor,
+        </Typography>{' '}
+        and
+        <Typography {...styles.boldTextProps} component="span">
+          {' '}
+          more!
         </Typography>
-      </Grid>
-    );
-  };
+      </Typography>
+    </Box>
+  );
 
-  const renderRightArtifacts = () => {
-    <>
-      <Box>
-        <Image
-          // {...styles.reXImageProps}
-          src={KaiBlob}
-          alt="recImage"
-        />
-      </Box>
-    </>
-  };
-
+  const renderRightArtifacts = () => (
+    <Box position="relative" width="100px" height="100px" flexShrink={0}>
+      <Image
+        src={ImageURLs.MarvelAuthImg}
+        alt="Decorative"
+        layout="fill"
+        objectFit="contain"
+      />
+    </Box>
+  );
 
   return (
-    <Box {...styles.mainBoxProps}>
-      <Box p={2}>
+    <Box
+      {...styles.mainBoxProps}
+      display="flex"
+      flexDirection="row"
+      alignItems="center"
+      justifyContent="space-between"
+      p={2}
+    >
       {renderLeftArtifacts()}
-      </Box>
-      <Box p={2}>
-        {renderTitle()}
-      </Box>
-      <Box p={2}>
+      {renderTitle()}
       {renderRightArtifacts()}
-      </Box>
     </Box>
   );
 };
