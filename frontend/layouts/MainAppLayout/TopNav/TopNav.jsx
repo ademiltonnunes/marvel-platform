@@ -1,58 +1,77 @@
-import * as React from "react";
-import { useRouter } from "next/router";
-import ROUTES from "@/constants/routes";
-import { useSelector } from "react-redux";
-import { signOut } from "firebase/auth";
-import { auth } from "@/redux/store";
+import React, { useCallback, useContext, useState } from 'react';
 
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
+import { Brightness4, Brightness7 } from '@mui/icons-material';
+import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
-import IconLogo from "@/assets/svg/Logo.jsx";
-import IconLogout from "@/assets/svg/Logout.jsx";
-import IconNavHome from "@/assets/svg/NavIconHome";
-import IconNcavDiscovery from "@/assets/svg/NavIconDiscovery";
-import IconNavChat from "@/assets/svg/NavIconChat";
-import Button from "@mui/material/Button";
+import { signOut } from 'firebase/auth';
 
-import styles, { colorMap } from "./styles";
+import { useRouter } from 'next/router';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import IconLogo from '@/assets/svg/Logo.jsx';
+import IconLogout from '@/assets/svg/Logout.jsx';
+import IconNavChat from '@/assets/svg/NavIconChat';
+import IconNcavDiscovery from '@/assets/svg/NavIconDiscovery';
+import IconNavHome from '@/assets/svg/NavIconHome';
+
+import ROUTES from '@/constants/routes';
+
+import styles, { colorMap } from './styles';
+
+import { updateUserTheme } from '@/redux/slices/userSlice';
+
+import { auth } from '@/redux/store';
+import { ColorModeContext } from '@/theme/theme';
 
 function TopNavBar() {
+  const dispatch = useDispatch();
+  const { toggleColorMode } = useContext(ColorModeContext);
   const router = useRouter();
   const user = useSelector((state) => state.user);
   const { pathname } = router;
-  const {
-    data: { fullName },
-  } = user;
+  const fullName = user?.data?.fullName || 'User';
+  const [colorMode, setColorMode] = useState(
+    user?.data?.systemConfig?.theme || false
+  );
 
   const pages = [
     {
-      name: "Home",
+      name: 'Home',
       icon: IconNavHome,
       path: ROUTES.HOME,
-      active: pathname === "/" || pathname === "/welcome-screen",
+      active: pathname === '/' || pathname === '/welcome-screen',
       disabled: false,
     },
     {
-      name: "Discovery",
+      name: 'Discovery',
       icon: IconNcavDiscovery,
       path: ROUTES.CHAT, // todo
       active: false,
       disabled: true,
     },
     {
-      name: "Chat",
+      name: 'Chat',
       icon: IconNavChat,
       path: ROUTES.CHAT,
-      active: pathname === "/chat",
+      active: pathname === '/chat',
       disabled: false,
     },
   ];
+
+  const handleThemeToggle = useCallback(() => {
+    const newTheme = !colorMode;
+    setColorMode(newTheme);
+    toggleColorMode();
+    dispatch(updateUserTheme(newTheme));
+  }, [colorMode, toggleColorMode, dispatch]);
 
   const handleNavMenu = (item) => {
     if (item.disabled) return;
@@ -80,14 +99,14 @@ function TopNavBar() {
           </Box>
 
           <Box {...styles.menuBoxProps}>
-            {pages.map((page, index) => (
+            {pages.map((page) => (
               <Button
                 key={page.name}
                 onClick={() => handleNavMenu(page)}
                 startIcon={page.icon({
                   color: page.disabled
                     ? colorMap.default
-                    : colorMap[page.active ? "active" : "default"],
+                    : colorMap[page.active ? 'active' : 'default'],
                 })}
                 {...styles.menuButtonProps(page)}
               >
@@ -99,6 +118,10 @@ function TopNavBar() {
           </Box>
 
           <Box {...styles.rightSectionBoxProps}>
+            <IconButton onClick={handleThemeToggle} color="inherit">
+              {colorMode ? <Brightness7 /> : <Brightness4 />}
+            </IconButton>
+            &emsp;
             <Avatar src={user.ProfilePhotoUrl} />
             &emsp;
             <Typography {...styles.rightSectionBoxTextProps}>

@@ -5,7 +5,7 @@ const styles = {
     mobileSmall: 12,
     height: '100vh',
     maxHeight: '100vh',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   contentGridProps: (extraContentProps, isToolPage) => ({
     container: true,
