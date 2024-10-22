@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import AppDisabled from '@/components/AppDisabled';
 import Loader from '@/components/Loader';
 
-import SideMenu from './SideMenu';
 import styles from './styles';
 import TopNav from './TopNav';
 
@@ -53,7 +52,6 @@ const MainAppLayout = (props) => {
   const renderApp = () => {
     return (
       <>
-        {/* <SideMenu /> */}
         <TopNav />
         <Grid {...styles.contentGridProps(extraContentProps, isToolPage)}>
           {children}

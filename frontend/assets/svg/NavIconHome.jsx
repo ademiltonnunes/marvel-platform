@@ -1,4 +1,4 @@
-export default function ({ color }) {
+function NavIconHome({ color }) {
   return (
     <svg
       width="25"
@@ -10,10 +10,12 @@ export default function ({ color }) {
       <path
         d="M19.1629 7.90625V17.9999C19.1629 19.1045 18.2675 19.9999 17.1629 19.9999H7.1629C6.05833 19.9999 5.1629 19.1045 5.1629 17.9999V7.90625M2.1629 10L11.016 3.80285C11.7046 3.3208 12.6212 3.3208 13.3098 3.80285L22.1629 10"
         stroke={color}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
 }
+
+export default NavIconHome;

@@ -1,4 +1,4 @@
-export default function ({ props }) {
+function Logo({ props }) {
   return (
     <svg
       width="106"
@@ -27,9 +27,9 @@ export default function ({ props }) {
           width="106"
           height="106"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -59,3 +59,5 @@ export default function ({ props }) {
     </svg>
   );
 }
+
+export default Logo;

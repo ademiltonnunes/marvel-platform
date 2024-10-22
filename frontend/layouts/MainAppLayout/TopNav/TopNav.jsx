@@ -85,7 +85,7 @@ function TopNavBar() {
           </Box>
 
           <Box {...styles.menuBoxProps}>
-            {pages.map((page, index) => (
+            {pages.map((page) => (
               <Button
                 key={page.name}
                 onClick={() => handleNavMenu(page)}
