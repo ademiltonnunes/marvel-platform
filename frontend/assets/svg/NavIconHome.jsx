@@ -1,4 +1,4 @@
-export default ({color}) => {
+export default function ({ color }) {
   return (
     <svg
       width="25"
@@ -16,4 +16,4 @@ export default ({color}) => {
       />
     </svg>
   );
-};
+}

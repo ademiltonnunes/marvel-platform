@@ -1,4 +1,4 @@
-export default ({ props }) => {
+export default function ({ props }) {
   return (
     <svg
       width="106"
@@ -58,4 +58,4 @@ export default ({ props }) => {
       </defs>
     </svg>
   );
-};
+}

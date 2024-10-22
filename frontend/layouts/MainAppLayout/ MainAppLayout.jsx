@@ -9,8 +9,8 @@ import AppDisabled from '@/components/AppDisabled';
 import Loader from '@/components/Loader';
 
 import SideMenu from './SideMenu';
-import TopNav from './TopNav'
 import styles from './styles';
+import TopNav from './TopNav';
 
 import { setLoading } from '@/redux/slices/authSlice';
 
