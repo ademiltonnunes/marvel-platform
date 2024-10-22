@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
+import { Brightness4, Brightness7 } from '@mui/icons-material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -13,7 +14,7 @@ import { signOut } from 'firebase/auth';
 
 import { useRouter } from 'next/router';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import IconLogo from '@/assets/svg/Logo.jsx';
 import IconLogout from '@/assets/svg/Logout.jsx';
@@ -25,15 +26,21 @@ import ROUTES from '@/constants/routes';
 
 import styles, { colorMap } from './styles';
 
+import { updateUserTheme } from '@/redux/slices/userSlice';
+
 import { auth } from '@/redux/store';
+import { ColorModeContext } from '@/theme/theme';
 
 function TopNavBar() {
+  const dispatch = useDispatch();
+  const { toggleColorMode } = useContext(ColorModeContext);
   const router = useRouter();
   const user = useSelector((state) => state.user);
   const { pathname } = router;
-  const {
-    data: { fullName },
-  } = user;
+  const fullName = user?.data?.fullName || 'User';
+  const [colorMode, setColorMode] = useState(
+    user?.data?.systemConfig?.theme || false
+  );
 
   const pages = [
     {
@@ -58,6 +65,13 @@ function TopNavBar() {
       disabled: false,
     },
   ];
+
+  const handleThemeToggle = useCallback(() => {
+    const newTheme = !colorMode;
+    setColorMode(newTheme);
+    toggleColorMode();
+    dispatch(updateUserTheme(newTheme));
+  }, [colorMode, toggleColorMode, dispatch]);
 
   const handleNavMenu = (item) => {
     if (item.disabled) return;
@@ -104,6 +118,10 @@ function TopNavBar() {
           </Box>
 
           <Box {...styles.rightSectionBoxProps}>
+            <IconButton onClick={handleThemeToggle} color="inherit">
+              {colorMode ? <Brightness7 /> : <Brightness4 />}
+            </IconButton>
+            &emsp;
             <Avatar src={user.ProfilePhotoUrl} />
             &emsp;
             <Typography {...styles.rightSectionBoxTextProps}>
