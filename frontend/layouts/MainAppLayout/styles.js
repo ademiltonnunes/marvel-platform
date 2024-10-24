@@ -6,6 +6,27 @@ const styles = {
     height: '100vh',
     maxHeight: '100vh',
     flexDirection: 'column',
+    sx: {
+      backgroundColor: (theme) => theme.palette.Background.Default,
+      backgroundImage: `
+        radial-gradient(70% 70% at 50% -0%, #4A426A 0%, #201E2B 58%, transparent 100%),
+        linear-gradient(rgba(100, 83, 168, 0.08) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(100, 83, 168, 0.08) 2px, transparent 2px)
+      `,
+      backgroundSize: '100% 100%, 100px 100px, 100px 100px',
+      backgroundPosition: '0px 0px',
+      minHeight: '100vh',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: '25%',
+        right: '25%',
+        width: '50%',
+        height: '2px',
+        background: 'rgba(100, 83, 168, 0.08)',
+      },
+    },
   },
   contentGridProps: (extraContentProps, isToolPage) => ({
     container: true,
@@ -15,9 +36,7 @@ const styles = {
     alignItems: 'flex-start',
     sx: (theme) => ({
       position: 'relative',
-      background: isToolPage
-        ? theme.palette.Background.white2
-        : theme.palette.Common.White['100p'],
+      background: 'transparent',
       py: {
         desktopLarge: 5,
         desktop: 4,

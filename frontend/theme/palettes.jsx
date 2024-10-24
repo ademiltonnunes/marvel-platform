@@ -333,8 +333,8 @@ export const lightPalette = {
     },
   },
   Background: {
-    Default: 'rgba(18, 18, 18, 1)',
-    primary: '#F3F3F3', // white background
+    Default: '#D6D4D0', // white background
+    primary: '#F3F3F3',
     secondary: 'linear-gradient(286.17deg, #99FDFF 0%, #D1B3FF 100%)',
     pink: '#FF98B7',
     purple: '#B791FF',

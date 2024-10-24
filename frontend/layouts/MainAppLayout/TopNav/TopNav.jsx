@@ -41,6 +41,7 @@ function TopNavBar() {
   const [colorMode, setColorMode] = useState(
     user?.data?.systemConfig?.theme || false
   );
+  const ProfilePhotoUrl = user?.data?.ProfilePhotoUrl || '';
 
   const pages = [
     {
@@ -122,7 +123,7 @@ function TopNavBar() {
               {colorMode ? <Brightness7 /> : <Brightness4 />}
             </IconButton>
             &emsp;
-            <Avatar src={user.ProfilePhotoUrl} />
+            <Avatar src={ProfilePhotoUrl} />
             &emsp;
             <Typography {...styles.rightSectionBoxTextProps}>
               {fullName}
