@@ -58,7 +58,7 @@ export const darkPalette = {
   },
   Text: {
     Primary: 'rgba(255, 255, 255, 1)',
-    Secondary: 'rgba(255, 255, 255, 0.7)',
+    Secondary: 'rgba(255, 255, 255, 0.9)',
     Disabled: 'rgba(255, 255, 255, 0.5)',
     'Primary Shades': {
       '4p': 'rgba(0, 0, 0, 0.04)',
@@ -164,6 +164,7 @@ export const darkPalette = {
     Default: 'rgba(18, 18, 18, 1)',
     primary: '#292B2F',
     secondary: 'linear-gradient(286.17deg, #99FDFF 0%, #D1B3FF 100%)',
+    tertiary: 'rgba(18, 18, 18, 1)',
     pink: '#FF98B7',
     purple: '#B791FF',
     purple3: '#5614F3',
@@ -259,12 +260,13 @@ export const darkPalette = {
   },
   Dark_Colors: {
     Dark: {
-      1: '#181A20',
+      1: '#121212',
       2: '#1F222A',
       3: '#262A35',
-      4: '#35383F',
-      5: '#242731',
-      6: '#1F2022',
+      4: '#201e2b99',
+      5: '#35383F',
+      6: '#242731',
+      7: '#1F2022',
     },
   },
   Greyscale: {
@@ -309,6 +311,12 @@ export const darkPalette = {
       '100p': 'rgba(255, 255, 255, 1)',
     },
   },
+  MutedPurple: {
+    Default: '#9E94A5',
+    Active: '#AC92FF',
+    SlatePurple: 'rgba(74, 66, 106, 0.8)',
+    SoftViolet: 'rgba(100, 83, 168, 0.08)',
+  },
   A100: 'rgba(130, 177, 255, 1)',
   A200: 'rgba(68, 138, 255, 1)',
   A400: 'rgba(41, 121, 255, 1)',
@@ -321,13 +329,12 @@ export const lightPalette = {
     Primary: 'rgba(0, 0, 0, 1)', // Dark text color for readability on light backgrounds
     Secondary: 'rgba(0, 0, 0, 0.7)', // Slightly lighter text for secondary content
     Disabled: 'rgba(0, 0, 0, 0.5)', // Even lighter for disabled text
-
-    primaryShades: {
+    'Primary Shades': {
       '4p': 'rgba(0, 0, 0, 0.04)', // Very light shade for primary text
       '12p': 'rgba(0, 0, 0, 0.12)', // Light shade for primary text
       '30p': 'rgba(0, 0, 0, 0.3)', // Medium shade for primary text
     },
-    secondaryShades: {
+    'Secondary Shades': {
       '4p': 'rgba(0, 0, 0, 0.04)', // Very light shade for secondary text
       '18p': 'rgba(0, 0, 0, 0.18)', // Light shade for secondary text
     },
@@ -336,6 +343,7 @@ export const lightPalette = {
     Default: '#D6D4D0', // white background
     primary: '#F3F3F3',
     secondary: 'linear-gradient(286.17deg, #99FDFF 0%, #D1B3FF 100%)',
+    tertiary: '#F3F3F3',
     pink: '#FF98B7',
     purple: '#B791FF',
     purple3: '#5614F3',
@@ -446,6 +454,55 @@ export const lightPalette = {
         'linear-gradient(256.97deg, #1AD6A1 21.42%, #1AFFAF 95.6%)',
       headerShadow: '0px 4px 18.700000762939453px 0px #1AD6A185',
     },
+  },
+  Dark_Colors: {
+    Dark: {
+      1: '#FFFFFF',
+      2: '#F7F7F8',
+      3: '#EAEAEA',
+      4: '#DFE1D466',
+      5: '#D4D4D5',
+      6: '#C0C0C1',
+      7: '#A8A8A9',
+    },
+  },
+  Greyscale: {
+    '900': '#FAFAFA',
+    '800': '#F5F5F5',
+    '780': '#EEEEEE',
+    '700': '#E0E0E0',
+    '650': '#BDBDBD',
+    '600': '#B8B8B8',
+    '500': '#898989',
+    '499': '#A8A8A8',
+    '498': '#9E9E9E',
+    '450': '#757575',
+    '400': '#646464',
+    '300': '#616161',
+    '200': '#555555',
+    '100': '#424242',
+    '50': '#212121',
+  },
+  Common: {
+    Black: {
+      '4p': 'rgba(255, 255, 255, 0.04)',
+      '12p': 'rgba(255, 255, 255, 0.12)',
+      '30p': 'rgba(255, 255, 255, 0.3)',
+      '100p': 'rgba(255, 255, 255, 1)',
+    },
+    White: {
+      '8p': 'rgba(0, 0, 0, 0.08)',
+      '12p': 'rgba(0, 0, 0, 0.12)',
+      '30p': 'rgba(0, 0, 0, 0.3)',
+      '90p': 'rgba(0, 0, 0, 0.9)',
+      '100p': 'rgba(0, 0, 0, 1)',
+    },
+  },
+  MutedPurple: {
+    Default: '#352c3b',
+    Active: '#7662b5',
+    SlatePurple: 'rgba(165, 158, 200, 0.5)',
+    SoftViolet: 'rgba(200, 190, 235, 0.2)',
   },
 };
 

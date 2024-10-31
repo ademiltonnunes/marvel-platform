@@ -6,27 +6,16 @@ const styles = {
     height: '100vh',
     maxHeight: '100vh',
     flexDirection: 'column',
-    sx: {
-      backgroundColor: (theme) => theme.palette.Background.Default,
+    sx: (theme) => ({
+      backgroundColor: theme.palette.Dark_Colors.Dark[1],
       backgroundImage: `
-        radial-gradient(70% 70% at 50% -0%, #4A426A 0%, #201E2B 58%, transparent 100%),
-        linear-gradient(rgba(100, 83, 168, 0.08) 2px, transparent 2px),
-        linear-gradient(90deg, rgba(100, 83, 168, 0.08) 2px, transparent 2px)
+        radial-gradient(70% 70% at 50% -0%, ${theme.palette.MutedPurple.SlatePurple} 0%, ${theme.palette.Dark_Colors.Dark[4]} 58%, ${theme.palette.Dark_Colors.Dark[1]} 100%),
+        linear-gradient(${theme.palette.MutedPurple.SoftViolet} 2px, transparent 2px),
+        linear-gradient(90deg, ${theme.palette.MutedPurple.SoftViolet} 2px, transparent 2px)
       `,
       backgroundSize: '100% 100%, 100px 100px, 100px 100px',
       backgroundPosition: '0px 0px',
-      minHeight: '100vh',
-      '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: '25%',
-        right: '25%',
-        width: '50%',
-        height: '2px',
-        background: 'rgba(100, 83, 168, 0.08)',
-      },
-    },
+    }),
   },
   contentGridProps: (extraContentProps, isToolPage) => ({
     container: true,

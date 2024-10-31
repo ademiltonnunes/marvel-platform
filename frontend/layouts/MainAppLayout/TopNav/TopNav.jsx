@@ -1,12 +1,15 @@
 import React, { useCallback, useContext, useState } from 'react';
 
 import { Brightness4, Brightness7 } from '@mui/icons-material';
+import LogoutIcon from '@mui/icons-material/Logout';
 import AppBar from '@mui/material/AppBar';
+
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
+import { useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
@@ -17,7 +20,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import IconLogo from '@/assets/svg/Logo.jsx';
-import IconLogout from '@/assets/svg/Logout.jsx';
+
 import IconNavChat from '@/assets/svg/NavIconChat';
 import IconNcavDiscovery from '@/assets/svg/NavIconDiscovery';
 import IconNavHome from '@/assets/svg/NavIconHome';
@@ -36,6 +39,7 @@ function TopNavBar() {
   const { toggleColorMode } = useContext(ColorModeContext);
   const router = useRouter();
   const user = useSelector((state) => state.user);
+  const theme = useTheme();
   const { pathname } = router;
   const fullName = user?.data?.fullName || 'User';
   const [colorMode, setColorMode] = useState(
@@ -106,8 +110,8 @@ function TopNavBar() {
                 onClick={() => handleNavMenu(page)}
                 startIcon={page.icon({
                   color: page.disabled
-                    ? colorMap.default
-                    : colorMap[page.active ? 'active' : 'default'],
+                    ? colorMap.default(theme)
+                    : colorMap[page.active ? 'active' : 'default'](theme),
                 })}
                 {...styles.menuButtonProps(page)}
               >
@@ -119,7 +123,10 @@ function TopNavBar() {
           </Box>
 
           <Box {...styles.rightSectionBoxProps}>
-            <IconButton onClick={handleThemeToggle} color="inherit">
+            <IconButton
+              onClick={handleThemeToggle}
+              {...styles.themeIconButtonProps}
+            >
               {colorMode ? <Brightness7 /> : <Brightness4 />}
             </IconButton>
             &emsp;
@@ -128,8 +135,11 @@ function TopNavBar() {
             <Typography {...styles.rightSectionBoxTextProps}>
               {fullName}
             </Typography>
-            <IconButton onClick={handleSignOutUser} sx={{ p: 0 }}>
-              <IconLogout alt="logout" />
+            <IconButton
+              onClick={handleSignOutUser}
+              {...styles.logoutButtonProps}
+            >
+              <LogoutIcon />
             </IconButton>
           </Box>
         </Toolbar>

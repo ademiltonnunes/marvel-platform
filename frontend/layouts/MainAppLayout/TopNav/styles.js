@@ -1,6 +1,6 @@
 export const colorMap = {
-  default: '#9E94A5',
-  active: '#AC92FF',
+  default: (theme) => theme.palette.MutedPurple.Default,
+  active: (theme) => theme.palette.MutedPurple.Active,
 };
 
 const styles = {
@@ -31,7 +31,7 @@ const styles = {
     sx: {
       ml: 1.5,
       fontFamily: 'monospace',
-      color: (theme) => theme.palette.Text.Primary,
+      color: (theme) => theme.palette.MutedPurple.Default,
       textDecoration: 'none',
       fontSize: '14px',
     },
@@ -46,29 +46,42 @@ const styles = {
   },
   menuButtonProps: (page) => ({
     variant: 'outlined',
-    sx: {
+    sx: (theme) => ({
       borderRadius: '8px',
-      border: '1px solid transparent',
-      borderImageSource: page.active
-        ? 'linear-gradient(127.16deg, #9D74FF -1.3%, rgba(157, 116, 255, 0) 132%)'
-        : 'none',
-      borderImageSlice: 1,
-      background: '#24272F',
+      position: 'relative',
+      border: 'none',
+      background: theme.palette.Dark_Colors.Dark[5],
       padding: '4px 12px',
       minHeight: '32px',
       '& .MuiButton-startIcon': {
         marginRight: '4px',
       },
-    },
+      ...(page.active && {
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          borderRadius: '8px',
+          padding: '1px',
+          background: `linear-gradient(127.16deg, #9D74FF -1.3%, ${theme.palette.Dark_Colors.Dark[1]} 132%)`,
+          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          maskComposite: 'exclude',
+          WebkitMask:
+            'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          WebkitMaskComposite: 'xor',
+          pointerEvents: 'none',
+        },
+      }),
+    }),
   }),
   menuButtonTextProps: (page) => ({
-    sx: {
+    sx: (theme) => ({
       color: page.disabled
-        ? colorMap.default
-        : colorMap[page.active ? 'active' : 'default'],
+        ? colorMap.default(theme)
+        : colorMap[page.active ? 'active' : 'default'](theme),
       textDecoration: 'none',
       fontSize: '14px',
-    },
+    }),
   }),
   rightSectionBoxProps: {
     sx: {
@@ -84,10 +97,28 @@ const styles = {
     sx: {
       mr: 2,
       fontFamily: 'monospace',
-      color: (theme) => theme.palette.Text.Primary,
+      color: (theme) => theme.palette.MutedPurple.Default,
       textDecoration: 'none',
       fontSize: '14px',
     },
+  },
+  themeIconButtonProps: {
+    sx: (theme) => ({
+      padding: '8px',
+      color: colorMap.default(theme),
+    }),
+  },
+
+  logoutButtonProps: {
+    sx: (theme) => ({
+      p: 0, // reset padding
+      pr: 2, // add padding right
+      color: colorMap.default(theme),
+      '&:hover': {
+        backgroundColor: 'transparent',
+        color: colorMap.active(theme),
+      },
+    }),
   },
 };
 
