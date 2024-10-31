@@ -1,6 +1,6 @@
 const styles = {
   mainBoxProps: {
-    backgroundColor: (theme) => theme.palette.Background.Default,
+    backgroundColor: (theme) => theme.palette.Background.tertiary,
     width: '100%',
     borderRadius: '10px',
     border: '1px solid',

@@ -52,12 +52,12 @@ const styles = {
   introTextProps: {
     fontFamily: 'Satoshi Bold',
     fontSize: '36px',
-    color: 'black',
+    color: (theme) => theme.palette.Text.Secondary,
   },
   subIntroTextProps: {
     fontFamily: 'Satoshi Bold',
     fontSize: '18px',
-    color: 'black',
+    color: (theme) => theme.palette.Text.Secondary,
   },
   highlightTextProps: {
     component: 'span',
@@ -69,7 +69,7 @@ const styles = {
   descriptionProps: {
     fontFamily: 'Satoshi Bold',
     fontSize: '16px',
-    color: 'black',
+    color: (theme) => theme.palette.Text.Secondary,
   },
   descriptionGridProps: {
     container: true,
