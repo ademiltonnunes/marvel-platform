@@ -1,14 +1,15 @@
-import { Card, Grid, Typography } from "@mui/material";
+import { useEffect, useState } from 'react';
 
-import Image from "next/image";
+import { Card, Grid, Typography } from '@mui/material';
 
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import Image from 'next/image';
 
-import ToolImage from "@/assets/images/BookImage.png";
-import IconToolTag from "@/assets/svg/toolStatusTag";
+import { useRouter } from 'next/router';
 
-import styles from "./styles";
+import ToolImage from '@/assets/images/BookImage.png';
+import IconToolTag from '@/assets/svg/toolStatusTag';
+
+import styles from './styles';
 
 /**
  * Returns a Tool Card component with an image and a chip displaying the amount of coins.
@@ -71,7 +72,7 @@ const ToolCard = (props) => {
   return (
     <Grid onClick={handleRoute} {...styles.mainGridProps}>
       <Card {...styles.cardProps(active)}>
-        <Grid {...styles.bgSectionProps(backgroundImgURL)}></Grid>
+        <Grid {...styles.bgSectionProps(backgroundImgURL)} />
         <Grid {...styles.toolDetailsGridProps}>
           {/* {renderImage()} */}
           {renderTitle()}
