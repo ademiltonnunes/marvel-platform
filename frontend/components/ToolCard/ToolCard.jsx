@@ -1,12 +1,14 @@
-import { Card, Grid, Typography } from '@mui/material';
+import { Card, Grid, Typography } from "@mui/material";
 
-import Image from 'next/image';
+import Image from "next/image";
 
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
-import ToolImage from '@/assets/images/BookImage.png';
+import ToolImage from "@/assets/images/BookImage.png";
+import IconToolTag from "@/assets/svg/toolStatusTag";
 
-import styles from './styles';
+import styles from "./styles";
 
 /**
  * Returns a Tool Card component with an image and a chip displaying the amount of coins.
@@ -14,11 +16,13 @@ import styles from './styles';
  * @return {JSX.Element} The Tool Card component.
  */
 const ToolCard = (props) => {
-  const { maskedToolUrl, backgroundImgURL, name, logo, description } = props;
+  const { maskedToolUrl, backgroundImgURL, name, logo, description, active } =
+    props;
 
   const router = useRouter();
 
   const handleRoute = () => {
+    if (!active) return null;
     return router.push(`/${maskedToolUrl}`);
   };
 
@@ -43,12 +47,35 @@ const ToolCard = (props) => {
     );
   };
 
+  const renderStatusTag = () => {
+    return (
+      <Grid {...styles.StatusTagProps()}>
+        {active ? (
+          <Grid {...styles.StatusTagButtonProps}>
+            <IconToolTag />
+            <Typography {...styles.StatusTagButtonTextProps}>
+              Build with Marvel
+            </Typography>
+          </Grid>
+        ) : (
+          <Grid {...styles.StatusTagInavtiveButtonProps}>
+            <Typography {...styles.StatusTagButtonTextProps}>
+              Coming Soon
+            </Typography>
+          </Grid>
+        )}
+      </Grid>
+    );
+  };
+
   return (
     <Grid onClick={handleRoute} {...styles.mainGridProps}>
-      <Card {...styles.cardProps(backgroundImgURL)}>
+      <Card {...styles.cardProps(active)}>
+        <Grid {...styles.bgSectionProps(backgroundImgURL)}></Grid>
         <Grid {...styles.toolDetailsGridProps}>
-          {renderImage()}
+          {/* {renderImage()} */}
           {renderTitle()}
+          {renderStatusTag()}
         </Grid>
       </Card>
     </Grid>
