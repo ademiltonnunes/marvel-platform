@@ -359,7 +359,7 @@ export const lightPalette = {
     darkgray1: '#24272F',
     gray: '#9B9B9B',
     grey1: '#D9D9D9',
-    grey2: '#292C34',
+    grey2: '#D4D4D5',
     green1: '#1AD6A1',
     chip: {
       yellow: 'rgba(255, 207, 35, 1)',
