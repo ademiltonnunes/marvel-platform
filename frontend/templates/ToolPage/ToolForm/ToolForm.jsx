@@ -47,7 +47,7 @@ const ToolForm = (props) => {
         name,
         value,
       }));
-      dispatch(setPrompt(values));
+      dispatch(setPrompt(toolData));
       dispatch(setCommunicatorLoading(true));
 
       const response = await submitPrompt(
@@ -168,7 +168,7 @@ const ToolForm = (props) => {
           bgColor="#ffffff"
           control={control}
           getValues={getValues}
-          ref={register}
+          // ref={register}
           showChips
           showCheckbox
           displayEmpty
