@@ -4,7 +4,7 @@ const styles = {
     container: true,
     mobileSmall: true,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     zIndex: 0,
     mt: 10,
     px: { laptop: 2, desktop: 2.5, desktopMedium: 3 },
@@ -16,18 +16,23 @@ const styles = {
     container: true,
     mobileSmall: 12,
     rowGap: 3,
-    justifyContent: 'center',
+    justifyContent: 'flex-start', // starting from left
     height: '100%',
     alignContent: 'flex-start',
   },
-  profileGridProps: {
+
+  descriptionGridProps: {
     container: true,
     item: true,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    rowGap: 1.5,
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    mobileSmall: 12,
+    width: '100%',
+    maxWidth: '100%',
+    px: 2,
   },
+
   introGridProps: {
     container: true,
     item: true,
@@ -40,25 +45,62 @@ const styles = {
     position: 'relative',
     container: true,
     item: true,
+    alignItems: 'flex-start',
     justifyContent: 'center',
-    alignItems: 'center',
-    width: 128,
-    height: 128,
+    width: 70,
+    height: 70,
   },
+
   imageProps: {
     layout: 'fill',
     objectFit: 'cover',
   },
-  introTextProps: {
-    fontFamily: 'Satoshi Bold',
-    fontSize: '36px',
-    color: 'black',
+
+  profileGridProps: {
+    container: true,
+    item: true,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    rowGap: 1.5,
   },
-  subIntroTextProps: {
-    fontFamily: 'Satoshi Bold',
+  // KAI AI added
+  kaiaiTextProps: {
+    fontFamily: 'Ethnocentric Regular',
+    fontSize: '22px',
+    letterSpacing: '16px',
+    lineHeight: '26.4px',
+    color: '#5614F3',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    width: '174px',
+    height: '26px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+  },
+
+  // Vector line added
+  kaiaiVectorLineContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    margin: '8px 0',
+  },
+
+  kaiaiVectorLine: {
+    width: '174px',
+    height: '1px',
+    backgroundColor: '#5614F3',
+  },
+
+  introTextProps: {
+    fontFamily: 'Satoshi',
     fontSize: '18px',
     color: 'black',
+    width: '100%',
+    wordWrap: 'break-word',
   },
+
   highlightTextProps: {
     component: 'span',
     fontFamily: 'inherit',
@@ -70,14 +112,6 @@ const styles = {
     fontFamily: 'Satoshi Bold',
     fontSize: '16px',
     color: 'black',
-  },
-  descriptionGridProps: {
-    container: true,
-    item: true,
-    justifyContent: 'center',
-    alignItems: 'center',
-    mobileSmall: 6,
-    maxWidth: '600px',
   },
 };
 

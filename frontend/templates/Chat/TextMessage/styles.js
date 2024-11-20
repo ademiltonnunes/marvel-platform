@@ -3,7 +3,7 @@ const styles = {
     container: true,
     item: true,
     mobileSmall: 12,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: isMyMessage ? 'flex-end' : 'flex-start',
     mt: 3,
   }),
@@ -12,8 +12,8 @@ const styles = {
       width: '100%',
       textWrap: 'wrap',
       wordWrap: 'break-word',
-      fontFamily: 'Satoshi Medium',
-      fontSize: { laptop: '16px', desktop: '18px', desktopMedium: '20px' },
+      fontFamily: 'Satoshi',
+      fontSize: '18px',
       color: (theme) =>
         isMyMessage
           ? theme.palette.Common.White['100p']
@@ -57,11 +57,14 @@ const styles = {
   },
   messageWrapperProps: (isMyMessage) => ({
     position: 'relative',
+    fontFamily: 'Satoshi',
+    fontSize: '18px',
+    color: 'black',
     container: true,
     item: true,
     width: 'auto',
     maxWidth: '100%',
-    flexDirection: !isMyMessage && 'column',
+    flexDirection: 'row',
     sx: {
       borderRadius: '50px',
       px: isMyMessage && { laptop: 2, desktop: 2.5, desktopMedium: 3 },

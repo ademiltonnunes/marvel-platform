@@ -322,9 +322,17 @@ const ChatInterface = () => {
   };
 
   const renderCenterChatContentNoMessages = () => {
-    if ((chatMessages?.length === 0 || !chatMessages) && !infoChatOpened)
+    // Check if there are no messages and info chat is not opened
+    if ((chatMessages?.length === 0 || !chatMessages) && !infoChatOpened) {
       return <CenterChatContentNoMessages />;
-    return null;
+    }
+    // Render the existing chat messages and user input
+    return (
+      <>
+        <CenterChatContentNoMessages />
+        {renderCenterChatContent()}
+      </>
+    );
   };
 
   const renderNewMessageIndicator = () => {
@@ -368,7 +376,7 @@ const ChatInterface = () => {
   return (
     <Grid {...styles.mainGridProps}>
       {renderMoreChat()}
-      {renderCenterChatContent()}
+      {/* {renderCenterChatContent()} */}
       {renderCenterChatContentNoMessages()}
       {renderNewMessageIndicator()}
       {renderBottomChatContent()}
