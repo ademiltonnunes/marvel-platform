@@ -1,5 +1,7 @@
 {
   "0": {
+    "active": true,
+    "type": "Questions",
     "backgroundImgURL": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/Quizify.png?alt=media&token=d1255f27-b1a1-444e-b96a-4a3ac559237d",
     "description": "Create a multiple choice quiz based on any topic, standard(s), and pdf files!",
     "id": "0",
@@ -26,6 +28,8 @@
     "name": "Multiple Choice Quiz"
   },
   "1": {
+    "active": true,
+    "type": "Planning",
     "backgroundImgURL": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/Dynamo.png?alt=media&token=db14183f-a294-49b2-a9de-0818b007c080",
     "description": "Creates flash cards from a youtube video.",
     "id": "1",
@@ -40,5 +44,122 @@
     ],
     "logo": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/YoutubeLogo.png?alt=media&token=2809083f-f816-41b6-8f86-80582b3da188",
     "name": "FlashCards from Youtube"
+  },
+  "2": {
+    "active": false,
+    "type": "Feedback",
+    "backgroundImgURL": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/Quizify.png?alt=media&token=d1255f27-b1a1-444e-b96a-4a3ac559237d",
+    "description": "Collect feedback on your recent project or session.",
+    "id": "2",
+    "inputs": [
+      {
+        "label": "Project Name",
+        "name": "project_name",
+        "placeholder": "Enter Project Name",
+        "type": "text"
+      },
+      {
+        "label": "Feedback Type",
+        "name": "feedback_type",
+        "placeholder": "Select Type",
+        "type": "dropdown",
+        "options": ["Positive", "Negative", "Suggestions"]
+      }
+    ],
+    "logo": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/QuizifyLogo.png?alt=media&token=9bf1d066-fba4-4063-9640-ef732e237d31",
+    "name": "Feedback Collector"
+  },
+  "3": {
+    "active": false,
+    "type": "Questions",
+    "backgroundImgURL": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/Quizify.png?alt=media&token=d1255f27-b1a1-444e-b96a-4a3ac559237d",
+    "description": "Generate quick quizzes for interview preparation.",
+    "id": "3",
+    "inputs": [
+      {
+        "label": "Subject",
+        "name": "subject",
+        "placeholder": "Enter Subject",
+        "type": "text"
+      },
+      {
+        "label": "Difficulty Level",
+        "name": "difficulty_level",
+        "type": "dropdown",
+        "options": ["Easy", "Medium", "Hard"]
+      }
+    ],
+    "logo": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/QuizifyLogo.png?alt=media&token=9bf1d066-fba4-4063-9640-ef732e237d31",
+    "name": "QuizMaster"
+  },
+  "4": {
+    "active": false,
+    "type": "Planning",
+    "backgroundImgURL": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/Quizify.png?alt=media&token=d1255f27-b1a1-444e-b96a-4a3ac559237d",
+    "description": "Plan tasks and set priorities for your team.",
+    "id": "4",
+    "inputs": [
+      {
+        "label": "Task Name",
+        "name": "task_name",
+        "placeholder": "Enter Task Name",
+        "type": "text"
+      },
+      {
+        "label": "Priority",
+        "name": "priority",
+        "type": "dropdown",
+        "options": ["High", "Medium", "Low"]
+      }
+    ],
+    "logo": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/QuizifyLogo.png?alt=media&token=9bf1d066-fba4-4063-9640-ef732e237d31",
+    "name": "Task Planner"
+  },
+  "5": {
+    "active": false,
+    "type": "Feedback",
+    "backgroundImgURL": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/Quizify.png?alt=media&token=d1255f27-b1a1-444e-b96a-4a3ac559237d",
+    "description": "Gather reviews and ratings from session attendees.",
+    "id": "5",
+    "inputs": [
+      {
+        "label": "Session ID",
+        "name": "session_id",
+        "placeholder": "Enter Session ID",
+        "type": "text"
+      },
+      {
+        "label": "Rating",
+        "name": "rating",
+        "type": "number",
+        "min": 1,
+        "max": 5
+      }
+    ],
+    "logo": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/QuizifyLogo.png?alt=media&token=9bf1d066-fba4-4063-9640-ef732e237d31",
+    "name": "Session Review"
+  },
+  "6": {
+    "active": false,
+    "type": "Questions",
+    "backgroundImgURL": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/Quizify.png?alt=media&token=d1255f27-b1a1-444e-b96a-4a3ac559237d",
+    "description": "Solve mathematical problems and practice skills.",
+    "id": "6",
+    "inputs": [
+      {
+        "label": "Problem Statement",
+        "name": "problem_statement",
+        "placeholder": "Enter Problem",
+        "type": "text"
+      },
+      {
+        "label": "Solution Steps",
+        "name": "solution_steps",
+        "type": "checkbox",
+        "tooltip": "Show step-by-step solution"
+      }
+    ],
+    "logo": "https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/QuizifyLogo.png?alt=media&token=9bf1d066-fba4-4063-9640-ef732e237d31",
+    "name": "Math Genius"
   }
 }

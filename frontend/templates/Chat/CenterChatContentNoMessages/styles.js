@@ -95,10 +95,15 @@ const styles = {
 
   introTextProps: {
     fontFamily: 'Satoshi',
+    fontSize: '36px',
+    color: (theme) => theme.palette.Text.Secondary,
+  },
+  subIntroTextProps: {
+    fontFamily: 'Satoshi Bold',
     fontSize: '18px',
-    color: 'black',
     width: '100%',
     wordWrap: 'break-word',
+    color: (theme) => theme.palette.Text.Secondary,
   },
 
   highlightTextProps: {
@@ -111,7 +116,7 @@ const styles = {
   descriptionProps: {
     fontFamily: 'Satoshi Bold',
     fontSize: '16px',
-    color: 'black',
+    color: (theme) => theme.palette.Text.Secondary,
   },
 };
 
