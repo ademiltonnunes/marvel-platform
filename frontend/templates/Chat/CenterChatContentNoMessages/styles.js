@@ -70,7 +70,6 @@ const styles = {
     fontSize: '22px',
     letterSpacing: '16px',
     lineHeight: '26.4px',
-    color: '#5614F3',
     textAlign: 'center',
     textTransform: 'uppercase',
     width: '174px',
@@ -90,21 +89,37 @@ const styles = {
   kaiaiVectorLine: {
     width: '174px',
     height: '1px',
-    backgroundColor: '#5614F3',
+    backgroundColor: '#8B7FD5',
+  },
+
+  kaiTextProps: {
+    color: '#FFFFFF', // White color for KAI
+    display: 'inline',
+  },
+
+  aiTextProps: {
+    color: '#8B7FD5', // Purple color for AI
+    display: 'inline',
+  },
+
+  educatorTextProps: {
+    fontFamily: 'Satoshi',
+    fontSize: '36px',
+    color: '#8B7FD5', // Same purple color for "Made for educators"
   },
 
   introTextProps: {
     fontFamily: 'Satoshi',
     fontSize: '36px',
-    color: (theme) => theme.palette.Text.Secondary,
+    color: '#FFFFFF',
   },
-  subIntroTextProps: {
-    fontFamily: 'Satoshi Bold',
-    fontSize: '18px',
-    width: '100%',
-    wordWrap: 'break-word',
-    color: (theme) => theme.palette.Text.Secondary,
-  },
+  // subIntroTextProps: {
+  //   fontFamily: 'Satoshi Bold',
+  //   fontSize: '18px',
+  //   width: '100%',
+  //   wordWrap: 'break-word',
+  //   color: (theme) => theme.palette.Text.Secondary,
+  // },
 
   highlightTextProps: {
     component: 'span',

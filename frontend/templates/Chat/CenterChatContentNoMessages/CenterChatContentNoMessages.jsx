@@ -10,15 +10,21 @@ const CenterChatContentNoMessages = ({ isInitialGreeting = true }) => {
   const renderProfilePic = () => {
     return (
       <Grid {...styles.profileGridProps}>
-        <Typography {...styles.kaiaiTextProps}>KAI AI</Typography>
+        <Typography style={styles.kaiaiTextProps}>
+          <span style={{ ...styles.kaiaiTextProps, ...styles.kaiTextProps }}>
+            KAI
+          </span>
+          <span style={{ ...styles.kaiaiTextProps, ...styles.aiTextProps }}>
+            AI
+          </span>
+        </Typography>
         <div style={styles.kaiaiVectorLineContainer}>
           <div style={styles.kaiaiVectorLine} />
         </div>
-        <Typography {...styles.IntroTextProps}>Made for educators</Typography>
+        <Typography {...styles.introTextProps}>Made for educators</Typography>
       </Grid>
     );
   };
-
   const renderDescription = () => {
     return (
       <Grid {...styles.descriptionGridProps}>
