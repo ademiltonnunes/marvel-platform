@@ -14,7 +14,7 @@
       },
       {
         "label": "Number of Questions",
-        "name": "num_questions",
+        "name": "n_questions",
         "placeholder": "Enter No. Of Questions",
         "type": "number"
       },

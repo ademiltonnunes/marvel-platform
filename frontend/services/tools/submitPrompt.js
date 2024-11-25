@@ -1,7 +1,18 @@
 import axios from 'axios';
 
+import { functions } from '@/redux/store';
+
 const submitPrompt = async (payload, files) => {
   try {
+    const { projectId } = functions.app.options;
+    const region = functions.region || 'us-central1';
+
+    // Get the functions URL based on environment
+    const baseURL =
+      window.location.hostname === 'localhost'
+        ? `http://localhost:5001/${projectId}/${region}/tool/api/tool`
+        : `https://${region}-${projectId}.cloudfunctions.net/tool/api/tool`;
+
     const formData = new FormData();
     formData.append('data', JSON.stringify(payload));
 
@@ -11,7 +22,7 @@ const submitPrompt = async (payload, files) => {
       });
     }
 
-    const response = await axios.post('/api/tool/', formData, {
+    const response = await axios.post(baseURL, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
