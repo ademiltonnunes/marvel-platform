@@ -1,3 +1,4 @@
+/* eslint-disable */
 const admin = require('firebase-admin');
 const storage = admin.storage();
 const {
@@ -249,9 +250,24 @@ app.post('/api/tool/', (req, res) => {
       res.set('Access-Control-Allow-Methods', 'POST');
       res.set('Access-Control-Allow-Headers', 'Content-Type');
 
+      // const modifiedInputs =
+      //   uploads?.length > 0
+      //     ? [...inputs, { name: 'files', value: results }]
+      //     : inputs;
+
       const modifiedInputs =
         uploads?.length > 0
-          ? [...inputs, { name: 'files', value: results }]
+          ? [
+              ...inputs,
+              { name: 'file_type', value: 'pdf' },
+              { name: 'lang', value: 'eng' },
+              // { name: 'file_url', value: results[0].url }
+              {
+                name: 'file_url',
+                value:
+                  'https://firebasestorage.googleapis.com/v0/b/kai-ai-f63c8.appspot.com/o/uploads%2F510f946e-823f-42d7-b95d-d16925293946-Linear%20Regression%20Stat%20Yale.pdf?alt=media&token=caea86aa-c06b-4cde-9fd0-42962eb72ddd',
+              },
+            ]
           : inputs;
 
       const response = await marvelCommunicator({
