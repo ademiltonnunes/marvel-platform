@@ -11,9 +11,9 @@ const styles = {
     sx: (theme) => ({
       fontFamily: 'Satoshi Bold',
       fontSize: { laptop: '16px', desktopMedium: '18px' },
-      background: theme.palette.Common.White['100p'],
+      background: theme.palette.Greyscale['800'],
       borderRadius: '5px',
-      color: 'black',
+      color: theme.palette.Text.Primary,
       ...extraInputProps,
       transition: theme.transitions.create('all'),
       px: 1.5,
@@ -21,7 +21,7 @@ const styles = {
         transition: theme.transitions.create('all'),
       },
       '& .MuiOutlinedInput-notchedOutline': {
-        border: `2px solid ${borderColor || theme.palette.Background.darkgray}`,
+        border: `2px solid ${borderColor || theme.palette.Common.Black['12p']}`,
       },
       '& input::placeholder': {
         fontStyle: 'italic',

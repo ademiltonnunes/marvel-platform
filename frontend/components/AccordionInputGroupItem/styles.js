@@ -1,9 +1,11 @@
 const styles = {
   accordianProps: {
     sx: {
-      background: (theme) => theme.palette.Common.White['100p'],
+      background: (theme) =>
+        `linear-gradient(180deg, ${theme.palette.Dark_Colors.Dark[1]} 0%, ${theme.palette.Dark_Colors.Dark[2]} 100%)`,
       borderRadius: '10px !important',
       width: '100%',
+      border: (theme) => `1px solid ${theme.palette.Background.purple3}`,
     },
   },
   accordionDetailsProps: (extraAccordionDetailsProps) => ({
@@ -17,7 +19,7 @@ const styles = {
       py: 2,
       fontFamily: 'Satoshi Bold',
       fontSize: { laptop: '20px', desktop: '24px' },
-      color: 'black',
+      color: (theme) => theme.palette.Text.Primary,
       display: 'flex',
       justifyContent: 'center !important',
       alignItems: 'center',

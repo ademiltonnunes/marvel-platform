@@ -173,7 +173,7 @@ export const darkPalette = {
     red: '#FF5252',
     blue: '#50A0FF',
     green: '#1ED494',
-    white2: '#F3F3F3',
+    white2: '#111111',
     darkgray: '#131313',
     darkgray1: '#24272F',
     gray: '#9B9B9B',
@@ -273,7 +273,7 @@ export const darkPalette = {
   },
   Greyscale: {
     900: '#212121',
-    800: '#424242',
+    800: '#23252A',
     780: '#555555',
     700: '#616161',
     650: '#646464',
@@ -328,7 +328,7 @@ export const darkPalette = {
 export const lightPalette = {
   mode: 'light',
   Text: {
-    Primary: 'rgba(0, 0, 0, 1)', // Dark text color for readability on light backgrounds
+    Primary: 'rgba(0, 0, 0, 0.8)', // Dark text color for readability on light backgrounds
     Secondary: 'rgba(0, 0, 0, 0.7)', // Slightly lighter text for secondary content
     Disabled: 'rgba(0, 0, 0, 0.5)', // Even lighter for disabled text
     'Primary Shades': {
