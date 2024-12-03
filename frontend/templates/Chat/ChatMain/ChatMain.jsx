@@ -25,6 +25,7 @@ import { MESSAGE_ROLE, MESSAGE_TYPES } from '@/constants/bots';
 import CenterChatContentNoMessages from '../CenterChatContentNoMessages';
 import ChatSpinner from '../ChatSpinner';
 import Message from '../Message';
+
 import styles from './styles';
 
 import {
@@ -365,16 +366,14 @@ const ChatMainInterface = () => {
     return null;
   };
 
-
   return (
     <Grid {...styles.mainGridProps}>
-        {renderMoreChat()}
-        {renderCenterChatContent()}
-        {renderCenterChatContentNoMessages()}
-        {renderNewMessageIndicator()}
-        {renderBottomChatContent()}
+      {renderMoreChat()}
+      {renderCenterChatContent()}
+      {renderCenterChatContentNoMessages()}
+      {renderNewMessageIndicator()}
+      {renderBottomChatContent()}
     </Grid>
-
   );
 };
 
