@@ -17,6 +17,7 @@ import { TOOLS_ID } from '@/constants/tools';
 
 import FlashCardList from './FlashCardList';
 import MultipleChoiceResponse from './MultipleChoiceResponse';
+import OutputHistory from './OutputHistory';
 import styles from './styles';
 import ToolForm from './ToolForm';
 
@@ -83,9 +84,15 @@ const ToolPage = (props) => {
 
   return (
     <Grid {...styles.mainGridProps}>
-      {renderBackButton()}
-      {renderForm()}
-      {!formOpen && response && <ToolOutputComponent />}
+      <Grid {...styles.leftSpaceGridProps} />
+      <Grid {...styles.contentGridProps}>
+        {renderBackButton()}
+        {renderForm()}
+        {!formOpen && response && <ToolOutputComponent />}
+      </Grid>
+      <Grid {...styles.historyGridProps}>
+        <OutputHistory />
+      </Grid>
     </Grid>
   );
 };

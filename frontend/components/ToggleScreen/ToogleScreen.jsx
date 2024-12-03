@@ -70,51 +70,54 @@ const ToggleScreen = ({
 
   const renderList = () => {
     return (
-      <List
+      <Box
         sx={{
-          backgroundColor: 'rgba(24, 26, 32, 0.37)',
-          height: '100%',
-          overflow: 'auto',
+          flex: 1,
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
-        {data.map((item, index) => (
-          <React.Fragment key={index}>
-            <ListItem
-              alignItems="flex-start"
-              onClick={() => onItemClick?.(item)}
-              sx={{ cursor: 'pointer' }}
-            >
-              <ListItemText
-                primary={
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    fontFamily="Satoshi Medium"
-                    fontSize="12px"
-                    fontWeight="400"
-                    sx={{ padding: '4px' }}
-                  >
-                    {formatDate(item.date)}
-                  </Typography>
-                }
-                secondary={
-                  <Typography
-                    variant="body1"
-                    color="textPrimary"
-                    fontFamily="Satoshi Medium"
-                    fontSize="14px"
-                    fontWeight="400"
-                    sx={{ padding: '4px' }}
-                  >
-                    {item.title}
-                  </Typography>
-                }
-              />
-            </ListItem>
-            {index < data.length - 1 && <Divider />}
-          </React.Fragment>
-        ))}
-      </List>
+        <List sx={styles.listProps}>
+          {data.map((item, index) => (
+            <React.Fragment key={index}>
+              <ListItem
+                alignItems="flex-start"
+                onClick={() => onItemClick?.(item)}
+                sx={{ cursor: 'pointer' }}
+              >
+                <ListItemText
+                  primary={
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      fontFamily="Satoshi Medium"
+                      fontSize="12px"
+                      fontWeight="400"
+                      sx={{ padding: '4px' }}
+                    >
+                      {formatDate(item.date)}
+                    </Typography>
+                  }
+                  secondary={
+                    <Typography
+                      variant="body1"
+                      color="textPrimary"
+                      fontFamily="Satoshi Medium"
+                      fontSize="14px"
+                      fontWeight="400"
+                      sx={{ padding: '4px' }}
+                    >
+                      {item.title}
+                    </Typography>
+                  }
+                />
+              </ListItem>
+              {index < data.length - 1 && <Divider />}
+            </React.Fragment>
+          ))}
+        </List>
+      </Box>
     );
   };
 
