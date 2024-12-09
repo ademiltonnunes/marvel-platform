@@ -17,6 +17,7 @@ import { TOOLS_ID } from '@/constants/tools';
 
 import FlashCardList from './FlashCardList';
 import MultipleChoiceResponse from './MultipleChoiceResponse';
+import OutputHistory from './OutputHistory';
 import styles from './styles';
 import ToolForm from './ToolForm';
 
@@ -47,7 +48,7 @@ const ToolPage = (props) => {
 
   const renderBackButton = () => {
     return (
-      <Grid {...styles.backButtonGridProps}>
+      <Grid {...styles.backButtonGrid.props} sx={styles.backButtonGrid.sx}>
         <GradientOutlinedButton
           bgcolor={theme.palette.Background.white2}
           icon={<ArrowBack />}
@@ -64,7 +65,7 @@ const ToolPage = (props) => {
 
   const renderForm = () => {
     return (
-      <Grid {...styles.formGridProps}>
+      <Grid {...styles.formGrid.props} sx={styles.formGrid.sx}>
         <AccordionInputGroupItem
           title={toolDoc?.name}
           description={toolDoc?.description}
@@ -78,14 +79,18 @@ const ToolPage = (props) => {
       </Grid>
     );
   };
-
   const ToolOutputComponent = RESPONSE_OUTPUTS[id];
-
   return (
-    <Grid {...styles.mainGridProps}>
-      {renderBackButton()}
-      {renderForm()}
-      {!formOpen && response && <ToolOutputComponent />}
+    <Grid {...styles.mainGrid.props} sx={styles.mainGrid.sx}>
+      <Grid sx={styles.leftSpaceGrid.sx} />
+      <Grid sx={styles.contentGrid.sx}>
+        {renderBackButton()}
+        {renderForm()}
+        {!formOpen && response && <ToolOutputComponent />}
+      </Grid>
+      <Grid sx={styles.historyGrid.sx}>
+        <OutputHistory />
+      </Grid>
     </Grid>
   );
 };

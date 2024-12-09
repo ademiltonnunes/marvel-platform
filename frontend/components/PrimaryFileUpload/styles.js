@@ -6,7 +6,8 @@ const styles = {
         div: {
           columnGap: 1,
         },
-        WebkitTextFillColor: 'rgba(0, 0, 0, 0.5) !important',
+        WebkitTextFillColor: (theme) =>
+          `${theme.palette.Text.Secondary} !important`,
       },
       '& .MuiOutlinedInput': {
         border: '2px solid black',
@@ -27,7 +28,7 @@ const styles = {
       px: 1.5,
       fieldset: {
         borderColor: (theme) =>
-          `${theme.palette.Common.Black['100p']} !important`,
+          `${theme.palette.Common.Black['12p']} !important`,
       },
       '& input::placeholder': {
         fontStyle: 'italic',
@@ -86,7 +87,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'flex-start',
     rowGap: 1,
-    color: (theme) => theme.palette.Common.Black['100p'],
+    color: 'inherit',
     ml: 2,
     sx: {
       transform: 'scale(0.75)',

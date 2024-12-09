@@ -1,20 +1,20 @@
 import { Grid } from '@mui/material';
-import ChatMain from './ChatMain';
+
 import ChatHistory from './ChatHistory';
+import ChatMain from './ChatMain';
 import styles from './styles';
 
 const ChatInterface = () => {
   return (
     <Grid {...styles.mainGridProps}>
-      <Grid {...styles.leftGrid}/>
+      <Grid {...styles.leftGrid} />
       <Grid>
-        <ChatMain/>
+        <ChatMain />
       </Grid>
       <Grid {...styles.rightGrid}>
-        <ChatHistory/>
-      </Grid> 
+        <ChatHistory />
+      </Grid>
     </Grid>
-    
   );
 };
 

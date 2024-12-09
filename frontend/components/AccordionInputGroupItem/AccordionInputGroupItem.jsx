@@ -43,11 +43,11 @@ const AccordionInputGroupItem = (props) => {
   const renderEditButton = () => {
     return (
       <GradientOutlinedButton
-        bgcolor={theme.palette.Common.White['100p']}
+        bgcolor={theme.palette.Common.Black['100p']}
         icon={<Edit sx={{ color: theme.palette.primary.main }} />}
         textColor={theme.palette.Greyscale[500]}
         iconPlacement="left"
-        onHoverTextColor={theme.palette.Common.White['100p']}
+        onHoverTextColor={theme.palette.Common.Black['100p']}
         clickHandler={toggleOpen}
         text={`${open ? 'Hide' : 'Edit'} Prompt`}
         {...styles.outlinedButtonProps}

@@ -26,7 +26,7 @@ const styles = {
         PaperProps: {
           sx: (theme) => ({
             background: bgColor,
-            color: 'black',
+            color: theme.palette.Text.Primary,
             '& .MuiMenuItem-root': {
               fontFamily: 'Satoshi Bold',
               fontSize: { laptop: '14px', desktop: '18px' },
@@ -46,11 +46,10 @@ const styles = {
         svg: {
           display: 'block',
           mr: 1.8,
-          color: (theme) => theme.palette.Greyscale[700],
+          color: (theme) => theme.palette.Background.purple3,
           fontSize: '32px !important',
         },
-        border: '2px solid black',
-        color: 'black',
+        color: (theme) => theme.palette.Text.Primary,
       },
     },
     inputProps: {

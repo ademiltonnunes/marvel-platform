@@ -33,6 +33,10 @@ const store = configureStore({
     toolHistory: toolHistoryReducer,
     chat: chatReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false, // This will disable all serialization checks
+    }),
 });
 
 export { auth, firestore, functions };

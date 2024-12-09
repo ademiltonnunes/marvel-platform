@@ -10,7 +10,7 @@ const styles = {
     alignItems: 'center',
     borderRadius: '10px',
     sx: {
-      background: (theme) => theme.palette.Common.White['100p'],
+      background: (theme) => theme.palette.Common.Black['100p'],
     },
   },
   titleGridProps: {
@@ -44,10 +44,12 @@ const styles = {
   questionTitleProps: {
     fontFamily: 'Satoshi Bold',
     fontSize: { laptop: '18px', desktop: '20px' },
+    color: (theme) => theme.palette.Text.Primary,
   },
   choiceProps: {
     fontFamily: 'Satoshi Regular',
     fontSize: { laptop: '18px', desktop: '20px' },
+    color: (theme) => theme.palette.Text.Primary,
   },
 };
 
