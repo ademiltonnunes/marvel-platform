@@ -13,22 +13,37 @@ import {
 import styles from './styles';
 
 const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  const today = new Date();
-  const yesterday = new Date(today);
-  yesterday.setDate(yesterday.getDate() - 1);
+  try {
+    const date = new Date(dateString);
+    if (date.isNaN()) {
+      console.error('Invalid date:', dateString);
+      return '';
+    }
 
-  if (date.toDateString() === today.toDateString()) {
-    return 'Today';
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    // Reset hours to compare just the dates
+    const dateWithoutTime = new Date(date.toDateString());
+    const todayWithoutTime = new Date(today.toDateString());
+    const yesterdayWithoutTime = new Date(yesterday.toDateString());
+
+    if (dateWithoutTime.getTime() === todayWithoutTime.getTime()) {
+      return 'Today';
+    }
+    if (dateWithoutTime.getTime() === yesterdayWithoutTime.getTime()) {
+      return 'Yesterday';
+    }
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch (error) {
+    console.error('Error formatting date:', error);
+    return '';
   }
-  if (date.toDateString() === yesterday.toDateString()) {
-    return 'Yesterday';
-  }
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
 };
 
 /**
@@ -49,6 +64,7 @@ const ToggleScreen = ({
   onItemClick,
   startIcon,
   endIcon,
+  emptyComponent,
   ...otherProps
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,6 +85,28 @@ const ToggleScreen = ({
   };
 
   const renderList = () => {
+    if (!data || data.length === 0) {
+      return (
+        <Box sx={styles.listProps}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: '100px',
+              width: '100%',
+            }}
+          >
+            {emptyComponent || (
+              <Typography sx={styles.menuButtonTextProps().sx}>
+                No items available
+              </Typography>
+            )}
+          </Box>
+        </Box>
+      );
+    }
+
     return (
       <Box
         sx={{
@@ -84,36 +122,24 @@ const ToggleScreen = ({
               <ListItem
                 alignItems="flex-start"
                 onClick={() => onItemClick?.(item)}
-                sx={{ cursor: 'pointer' }}
+                sx={styles.listItemProps.sx}
               >
                 <ListItemText
                   primary={
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      fontFamily="Satoshi Medium"
-                      fontSize="12px"
-                      fontWeight="400"
-                      sx={{ padding: '4px' }}
-                    >
+                    <Typography sx={styles.dateTextProps.sx}>
                       {formatDate(item.date)}
                     </Typography>
                   }
                   secondary={
-                    <Typography
-                      variant="body1"
-                      color="textPrimary"
-                      fontFamily="Satoshi Medium"
-                      fontSize="14px"
-                      fontWeight="400"
-                      sx={{ padding: '4px' }}
-                    >
+                    <Typography sx={styles.titleTextProps.sx}>
                       {item.title}
                     </Typography>
                   }
                 />
               </ListItem>
-              {index < data.length - 1 && <Divider />}
+              {index < data.length - 1 && (
+                <Divider sx={styles.dividerProps.sx} />
+              )}
             </React.Fragment>
           ))}
         </List>

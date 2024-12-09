@@ -36,6 +36,10 @@ const styles = {
         bottom: 0,
         zIndex: 2,
       },
+      '.MuiBox-root': {
+        backgroundColor: 'rgba(24, 26, 32, 0.37)',
+        minHeight: '100px',
+      },
     },
   },
 };
