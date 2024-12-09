@@ -1,21 +1,23 @@
-import { Grid, Button } from "@mui/material";
-import { useState, useMemo } from "react";
-import { useSelector } from "react-redux";
-import styles from "./styles";
+import { useMemo, useState } from 'react';
+
+import { Button, Grid } from '@mui/material';
+import { useSelector } from 'react-redux';
+
+import styles from './styles';
 
 const ToolsFilter = ({ onFilterChange }) => {
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeFilter, setActiveFilter] = useState('all');
   const { data } = useSelector((state) => state.tools);
 
   // Extract unique types from tools data
   const filterItems = useMemo(() => {
-    if (!data) return [{ id: "all", label: "All" }];
+    if (!data) return [{ id: 'all', label: 'All' }];
 
     // Get all tool types and remove duplicates
     const types = [...new Set(data.map((tool) => tool.type))];
 
     return [
-      { id: "all", label: "All" },
+      { id: 'all', label: 'All' },
       ...types.map((type) => ({
         id: type.toLowerCase(),
         label: type,
@@ -33,7 +35,7 @@ const ToolsFilter = ({ onFilterChange }) => {
       {filterItems.map((item) => (
         <Grid key={item.id} {...styles.filterItemProps}>
           <Button
-            className={activeFilter === item.id ? "active" : ""}
+            className={activeFilter === item.id ? 'active' : ''}
             onClick={() => handleFilterClick(item.id)}
             sx={styles.filterButton.sx}
           >

@@ -1,24 +1,30 @@
-import { Grid, Typography } from "@mui/material";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from 'react';
 
-import ToolsListingContainer from "@/components/ToolsListingContainer";
-import ToolsFilter from "@/components/ToolsFilter";
+import { Grid, Typography } from '@mui/material';
 
-import Banner from "./Banner";
+import ToolsFilter from '@/components/ToolsFilter';
+import ToolsListingContainer from '@/components/ToolsListingContainer';
 
-import styles from "./styles";
+import Banner from './Banner';
+
+import styles from './styles';
 
 const HomePage = ({ data, loading, error }) => {
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeFilter, setActiveFilter] = useState('all');
 
   const filteredTools = useMemo(() => {
     if (!data) return [];
-    if (activeFilter === "all") return data;
+    if (activeFilter === 'all') return data;
     const filtered = data.filter(
       (tool) => tool.type.toLowerCase() === activeFilter
     );
     return filtered;
   }, [data, activeFilter]);
+
+  // Helper function to capitalize first letter
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
 
   const renderContent = () => {
     if (filteredTools.length === 0) {
@@ -34,7 +40,7 @@ const HomePage = ({ data, loading, error }) => {
         data={filteredTools}
         loading={loading}
         error={error}
-        category={activeFilter}
+        category={capitalizeFirstLetter(activeFilter)}
       />
     );
   };
