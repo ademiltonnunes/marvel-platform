@@ -53,7 +53,8 @@ const styles = {
     rowGap: 4,
   },
   labelProps: (error) => ({
-    color: (theme) => (error ? theme.palette.error.main : 'inherit'),
+    color: (theme) =>
+      error ? theme.palette.error.main : theme.palette.Text.Primary,
     fontSize: { laptop: '24px', desktop: '26px' },
     fontFamily: 'Satoshi Bold',
   }),

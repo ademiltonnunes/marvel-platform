@@ -85,7 +85,14 @@ const ToolForm = (props) => {
           {label}
         </Typography>
         {tooltip && (
-          <Tooltip placement="top" title={tooltip} sx={{ ml: 1 }}>
+          <Tooltip
+            placement="top"
+            title={tooltip}
+            sx={{
+              ml: 1,
+              color: theme.palette.Common.White['100p'],
+            }}
+          >
             <Help />
           </Tooltip>
         )}
@@ -130,7 +137,7 @@ const ToolForm = (props) => {
           label={renderLabel()}
           displayEmpty
           color="purple"
-          bgColor="#ffffff"
+          bgColor={theme.palette.Greyscale['800']}
           placeholder={placeholder}
           error={errors?.[inputName]}
           menuList={new Array(max).fill()?.map((item, index) => ({
@@ -165,10 +172,9 @@ const ToolForm = (props) => {
           error={errors?.[inputName]}
           helperText={errors?.[inputName]?.message}
           color="purple"
-          bgColor="#ffffff"
+          bgColor={theme.palette.Greyscale['800']}
           control={control}
           getValues={getValues}
-          // ref={register}
           showChips
           showCheckbox
           displayEmpty

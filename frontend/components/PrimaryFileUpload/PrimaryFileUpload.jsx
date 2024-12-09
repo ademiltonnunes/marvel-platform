@@ -110,11 +110,11 @@ const PrimaryFileUpload = forwardRef((props, ref) => {
       <IconButton
         onClick={handleCarouselInput}
         sx={{
-          ':hover': { bgcolor: (theme) => theme.palette.Common.Black['30p'] },
+          ':hover': { bgcolor: (theme) => theme.palette.Common.White['30p'] },
         }}
       >
         <FileUploadOutlined
-          sx={{ color: (theme) => theme.palette.Common.Black['100p'] }}
+          sx={{ color: (theme) => theme.palette.Background.purple3 }}
         />
       </IconButton>
     );

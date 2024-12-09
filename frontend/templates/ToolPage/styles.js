@@ -1,42 +1,82 @@
 const styles = {
-  mainGridProps: {
-    container: true,
-    item: true,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    height: 'auto',
-    rowGap: 5,
-    px: { laptop: 4, desktop: 5, desktopMedium: 6 },
-    py: { laptop: 1, desktop: 1.5, desktopMedium: 2 },
+  mainGrid: {
+    sx: {
+      height: '100vh',
+      position: 'relative',
+      overflow: 'hidden',
+      display: 'grid',
+      gridTemplateColumns: {
+        laptop: '180px minmax(0, 1fr) 300px',
+        desktop: '180px minmax(0, 1fr) 300px',
+        desktopMedium: '180px minmax(0, 1fr) 300px',
+      },
+    },
+    props: {
+      container: true,
+      item: true,
+    },
   },
-  backButtonGridProps: {
-    container: true,
-    item: true,
-    mobileSmall: 12,
-    height: 'auto',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+  contentGrid: {
+    sx: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      height: '100%',
+      overflow: 'auto',
+      rowGap: 0,
+      py: { laptop: 1, desktop: 1.5, desktopMedium: 2 },
+      px: { laptop: 2, desktop: 3, desktopMedium: 4 },
+      width: '100%',
+      maxWidth: '100%',
+    },
   },
-  titleProps: {
-    fontFamily: 'Satoshi Bold',
-    fontSize: '36px',
+  leftSpaceGrid: {
+    sx: {
+      height: '100%',
+    },
   },
-  subtitleProps: {
-    fontFamily: 'Satoshi Regular',
-    fontSize: '18px',
+  historyGrid: {
+    sx: {
+      position: 'fixed',
+      right: { laptop: 16, desktop: 20, desktopMedium: 24 },
+      bottom: { laptop: 16, desktop: 20, desktopMedium: 24 },
+      width: '300px',
+      zIndex: 1000,
+      pointerEvents: 'auto',
+    },
   },
-  highlightTextProps: {
-    component: 'span',
-    fontFamily: 'inherit',
-    fontSize: 'inherit',
-    color: (theme) => theme.palette.primary.main,
+  backButtonGrid: {
+    sx: {
+      height: 'auto',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      width: '100%',
+      maxWidth: '1000px',
+      mb: 0,
+      flex: '0 10 auto',
+    },
+    props: {
+      container: true,
+      item: true,
+      mobileSmall: 12,
+    },
   },
-  formGridProps: {
-    container: true,
-    item: true,
-    mobileSmall: 12,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
+  formGrid: {
+    sx: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      rowGap: '12px',
+      width: '100%',
+      maxWidth: '1000px',
+      '& .MuiAccordion-root': {
+        mb: 0,
+      },
+    },
+    props: {
+      container: true,
+      item: true,
+      mobileSmall: 12,
+    },
   },
   outlinedButtonProps: {
     color: 'purple',
