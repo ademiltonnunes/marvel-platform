@@ -1,62 +1,81 @@
 const styles = {
-  mainGridProps: {
-    container: true,
-    item: true,
-    height: '100vh',
-    position: 'relative',
-    overflow: 'hidden',
-    display: 'grid',
-    gridTemplateColumns: {
-      laptop: '180px minmax(0, 1fr) 300px',
-      desktop: '180px minmax(0, 1fr) 300px',
-      desktopMedium: '180px minmax(0, 1fr) 300px',
+  mainGrid: {
+    sx: {
+      height: '100vh',
+      position: 'relative',
+      overflow: 'hidden',
+      display: 'grid',
+      gridTemplateColumns: {
+        laptop: '180px minmax(0, 1fr) 300px',
+        desktop: '180px minmax(0, 1fr) 300px',
+        desktopMedium: '180px minmax(0, 1fr) 300px',
+      },
+    },
+    props: {
+      container: true,
+      item: true,
     },
   },
-  contentGridProps: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    height: '100%',
-    overflow: 'auto',
-    rowGap: 0,
-    py: { laptop: 1, desktop: 1.5, desktopMedium: 2 },
-    px: { laptop: 2, desktop: 3, desktopMedium: 4 },
-    width: '100%',
-    maxWidth: '100%',
+  contentGrid: {
+    sx: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      height: '100%',
+      overflow: 'auto',
+      rowGap: 0,
+      py: { laptop: 1, desktop: 1.5, desktopMedium: 2 },
+      px: { laptop: 2, desktop: 3, desktopMedium: 4 },
+      width: '100%',
+      maxWidth: '100%',
+    },
   },
-  leftSpaceGridProps: {
-    height: '100%',
+  leftSpaceGrid: {
+    sx: {
+      height: '100%',
+    },
   },
-  historyGridProps: {
-    position: 'fixed',
-    right: { laptop: 16, desktop: 20, desktopMedium: 24 },
-    bottom: { laptop: 16, desktop: 20, desktopMedium: 24 },
-    width: '300px',
-    zIndex: 1000,
-    pointerEvents: 'auto',
+  historyGrid: {
+    sx: {
+      position: 'fixed',
+      right: { laptop: 16, desktop: 20, desktopMedium: 24 },
+      bottom: { laptop: 16, desktop: 20, desktopMedium: 24 },
+      width: '300px',
+      zIndex: 1000,
+      pointerEvents: 'auto',
+    },
   },
-  backButtonGridProps: {
-    container: true,
-    item: true,
-    mobileSmall: 12,
-    height: 'auto',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    width: '100%',
-    maxWidth: '1000px',
-    mb: 0,
-    flex: '0 10 auto',
-  },
-  formGridProps: {
-    container: true,
-    item: true,
-    mobileSmall: 12,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    width: '100%',
-    maxWidth: '1000px',
-    '& .MuiAccordion-root': {
+  backButtonGrid: {
+    sx: {
+      height: 'auto',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      width: '100%',
+      maxWidth: '1000px',
       mb: 0,
+      flex: '0 10 auto',
+    },
+    props: {
+      container: true,
+      item: true,
+      mobileSmall: 12,
+    },
+  },
+  formGrid: {
+    sx: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      rowGap: '12px',
+      width: '100%',
+      maxWidth: '1000px',
+      '& .MuiAccordion-root': {
+        mb: 0,
+      },
+    },
+    props: {
+      container: true,
+      item: true,
+      mobileSmall: 12,
     },
   },
   outlinedButtonProps: {

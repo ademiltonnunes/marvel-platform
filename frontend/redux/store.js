@@ -35,7 +35,7 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false // This will disable all serialization checks
+      serializableCheck: false, // This will disable all serialization checks
     }),
 });
 
