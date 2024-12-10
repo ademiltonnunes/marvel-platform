@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import ToggleScreen from '@/components/ToggleScreen';
+import ToolOutputHistoryDrawer from '@/components/ToolOutputHistoryDrawer';
 
 import ArrowIcon from '@/assets/svg/arrow_icon.svg';
 import IconHistoryClose from '@/assets/svg/ChatIconCloseChatHistory.svg';
@@ -43,20 +44,19 @@ const EmptyState = () => (
 
 const OutputHistory = () => {
   const { data, loading } = useSelector((state) => state.toolHistory);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const transformedData = React.useMemo(() => {
     if (!data) return [];
 
     return Object.entries(data)
       .map(([id, session]) => {
-        // Parse the date string and handle timestamps if present
         let date;
         try {
           if (session.createdAt?.seconds) {
-            // Handle Firestore timestamp
             date = new Date(session.createdAt.seconds * 1000).toISOString();
           } else {
-            // Handle string date
             date = session.createdAt;
           }
         } catch (error) {
@@ -74,13 +74,22 @@ const OutputHistory = () => {
           originalData: session,
         };
       })
-      .sort((a, b) => new Date(b.date) - new Date(a.date)); // Add sorting by date
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
   }, [data]);
 
   const handleItemClick = (item) => {
-    console.log('Clicked output item:', item);
-    console.log('Output type:', item.type);
-    console.log('Number of items:', item.count);
+    setSelectedItem({
+      ...item.originalData,
+      title: item.title,
+      toolId: item.type,
+      createdAt: item.date,
+    });
+    setOpenDrawer(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpenDrawer(false);
+    setSelectedItem(null);
   };
 
   if (loading) {
@@ -96,17 +105,24 @@ const OutputHistory = () => {
   }
 
   return (
-    <Grid {...styles.mainGridProps}>
-      <ToggleScreen
-        title="Output History"
-        data={transformedData}
-        onItemClick={handleItemClick}
-        startIcon={StartIcon}
-        endIcon={StyledArrow}
-        emptyComponent={<EmptyState />}
-        {...styles.toggleScreenProps}
+    <>
+      <Grid {...styles.mainGridProps}>
+        <ToggleScreen
+          title="Output History"
+          data={transformedData}
+          onItemClick={handleItemClick}
+          startIcon={StartIcon}
+          endIcon={StyledArrow}
+          emptyComponent={<EmptyState />}
+          {...styles.toggleScreenProps}
+        />
+      </Grid>
+      <ToolOutputHistoryDrawer
+        isOpen={openDrawer}
+        onClose={handleDrawerClose}
+        data={selectedItem}
       />
-    </Grid>
+    </>
   );
 };
 
