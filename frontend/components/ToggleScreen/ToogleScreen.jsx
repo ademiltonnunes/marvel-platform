@@ -15,7 +15,7 @@ import styles from './styles';
 const formatDate = (dateString) => {
   try {
     const date = new Date(dateString);
-    if (date.isNaN()) {
+    if (date.isNaN) {
       console.error('Invalid date:', dateString);
       return '';
     }

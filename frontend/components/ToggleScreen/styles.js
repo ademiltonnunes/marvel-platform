@@ -76,13 +76,13 @@ const styles = {
     }),
   },
   dateTextProps: {
-    sx: {
-      color: '#9CA3AF',
+    sx: (theme) => ({
+      color: theme.palette.Text.Secondary,
       fontFamily: 'Satoshi Medium',
       fontSize: '12px',
       fontWeight: '400',
       padding: '4px',
-    },
+    }),
   },
   titleTextProps: {
     sx: (theme) => ({
