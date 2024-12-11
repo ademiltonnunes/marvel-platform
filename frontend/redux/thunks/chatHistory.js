@@ -11,10 +11,6 @@ import {
 
 import { firestore } from '@/redux/store';
 
-const ChatTypes = {
-  CHAT: 'chat',
-};
-
 export const fetchChatHistory = createAsyncThunk(
   'chatHistory/fetchChatHistory',
   async ({ pageSize = 10, lastDoc = null }, { getState, rejectWithValue }) => {

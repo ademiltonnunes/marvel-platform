@@ -16,8 +16,7 @@ const formatDate = (dateString) => {
   try {
     const date = new Date(dateString);
     if (date.isNaN) {
-      console.error('Invalid date:', dateString);
-      return '';
+      throw new Error('Invalid date', dateString);
     }
 
     const today = new Date();
@@ -41,8 +40,7 @@ const formatDate = (dateString) => {
       day: 'numeric',
     });
   } catch (error) {
-    console.error('Error formatting date:', error);
-    return '';
+    return error;
   }
 };
 
