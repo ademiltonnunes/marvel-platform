@@ -18,6 +18,17 @@ const styles = {
       animation: 'd3 1s infinite linear',
     },
   },
+  boxWrapperProps: {
+    sx: {
+      width: '100%',
+      mt: 3,
+    },
+  },
+  gridContainerProps: {
+    sx: {
+      justifyContent: 'flex-start',
+    },
+  },
   messageWrapperProps: () => ({
     position: 'relative',
     container: true,

@@ -11,6 +11,14 @@ import IconChatOpen from '@/assets/svg/ChatIconOpenChatHistory.svg';
 
 import styles from './styles';
 
+import { setSelectedChat } from '@/redux/slices/chatHistorySlices';
+import {
+  resetChat,
+  setChatSession,
+  setSessionLoaded,
+  setStreaming,
+  setTyping,
+} from '@/redux/slices/chatSlice';
 import { fetchChatHistory } from '@/redux/thunks/chatHistory';
 
 const StyledArrow = ({ isOpen }) => {
@@ -76,7 +84,23 @@ const ChatHistory = () => {
   }, [data]);
 
   const handleItemClick = (item) => {
-    console.log('Clicked chat session:', item.originalData);
+    const session = item.originalData;
+
+    // Reset current chat
+    dispatch(resetChat());
+
+    // Ensure typing and streaming are reset
+    dispatch(setTyping(false));
+    dispatch(setStreaming(false));
+
+    // Set the selected chat in history slice
+    dispatch(setSelectedChat(session.id));
+
+    // Update the current session
+    dispatch(setChatSession(session));
+
+    // Set session as loaded
+    dispatch(setSessionLoaded(true));
   };
 
   const handleLoadMore = () => {
