@@ -5,6 +5,7 @@ import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 import { connectFunctionsEmulator, getFunctions } from 'firebase/functions';
 
 import authReducer from './slices/authSlice';
+import chatHistoryReducer from './slices/chatHistorySlices';
 import chatReducer from './slices/chatSlice';
 import toolHistoryReducer from './slices/toolHistorySlice';
 import toolsReducer from './slices/toolsSlice';
@@ -32,6 +33,7 @@ const store = configureStore({
     tools: toolsReducer,
     toolHistory: toolHistoryReducer,
     chat: chatReducer,
+    chatHistory: chatHistoryReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

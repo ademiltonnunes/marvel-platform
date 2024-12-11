@@ -8,7 +8,7 @@ const ChatInterface = () => {
   return (
     <Grid {...styles.mainGridProps}>
       <Grid {...styles.leftGrid} />
-      <Grid>
+      <Grid item xs={12} md="auto">
         <ChatMain />
       </Grid>
       <Grid {...styles.rightGrid}>
