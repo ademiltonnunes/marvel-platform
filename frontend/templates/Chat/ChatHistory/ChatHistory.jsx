@@ -48,7 +48,7 @@ const ChatHistory = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchChatHistory({ pageSize: 10 }));
+    dispatch(fetchChatHistory({ pageSize: 5 }));
   }, [dispatch]);
 
   const transformedData = React.useMemo(() => {
@@ -105,7 +105,7 @@ const ChatHistory = () => {
 
   const handleLoadMore = () => {
     if (hasMore && !loading) {
-      dispatch(fetchChatHistory({ pageSize: 10, lastDoc }));
+      dispatch(fetchChatHistory({ pageSize: 5, lastDoc }));
     }
   };
 
@@ -120,6 +120,7 @@ const ChatHistory = () => {
         loading={loading}
         hasMore={hasMore}
         onLoadMore={handleLoadMore}
+        loadMoreCount={5}
       />
     </Grid>
   );
