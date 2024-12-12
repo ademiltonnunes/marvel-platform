@@ -23,7 +23,7 @@ const styles = {
     mobileSmall: true,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    sx: (theme) => ({
+    sx: {
       position: 'relative',
       background: 'transparent',
       py: {
@@ -39,7 +39,7 @@ const styles = {
       overflow: 'scroll',
       maxHeight: '100vh',
       ...extraContentProps,
-    }),
+    },
   }),
   logoGridProps: {
     item: true,

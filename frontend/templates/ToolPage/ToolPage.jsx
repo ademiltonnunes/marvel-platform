@@ -89,7 +89,7 @@ const ToolPage = (props) => {
         {!formOpen && response && <ToolOutputComponent />}
       </Grid>
       <Grid sx={styles.historyGrid.sx}>
-        <OutputHistory />
+        <OutputHistory toolId={id} />
       </Grid>
     </Grid>
   );

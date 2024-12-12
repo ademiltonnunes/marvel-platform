@@ -14,7 +14,6 @@ const getChatSessions = async () => {
   try {
     const fetchChatSessions = httpsCallable(functions, 'getChatSessions');
     const response = await fetchChatSessions(payload);
-    console.log('Service worked!');
     return response.data;
   } catch (error) {
     const errorMessage = error.message || 'Failed get chat sessions in service';

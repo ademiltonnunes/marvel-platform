@@ -28,6 +28,7 @@ import Message from '../Message';
 
 import styles from './styles';
 
+import { setSelectedChat } from '@/redux/slices/chatHistorySlices';
 import {
   openInfoChat,
   resetChat,
@@ -109,13 +110,14 @@ const ChatMainInterface = () => {
     return () => {
       localStorage.removeItem('sessionId');
       dispatch(resetChat());
+      dispatch(setSelectedChat(null));
     };
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     let unsubscribe;
 
-    if (sessionLoaded || currentSession) {
+    if (sessionLoaded || currentSession?.id) {
       messagesContainerRef.current?.scrollTo(
         0,
         messagesContainerRef.current?.scrollHeight,
@@ -126,16 +128,23 @@ const ChatMainInterface = () => {
 
       const sessionRef = query(
         collection(firestore, 'chatSessions'),
-        where('id', '==', sessionId)
+        where('id', '==', currentSession.id)
       );
 
       unsubscribe = onSnapshot(sessionRef, async (snapshot) => {
         snapshot.docChanges().forEach((change) => {
           if (change.type === 'modified') {
             const updatedData = change.doc.data();
-            const updatedMessages = updatedData.messages;
+            // Transform messages to match array format messages
+            const messagesArray = Object.entries(updatedData.messages || {})
+              .map(([key, message]) => ({
+                id: key,
+                ...message,
+              }))
+              .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
-            const lastMessage = updatedMessages[updatedMessages.length - 1];
+            // Update only if there's a new AI message
+            const lastMessage = messagesArray[messagesArray.length - 1];
 
             if (lastMessage?.role === MESSAGE_ROLE.AI) {
               dispatch(
@@ -152,9 +161,9 @@ const ChatMainInterface = () => {
     }
 
     return () => {
-      if (sessionLoaded || currentSession) unsubscribe();
+      if (unsubscribe) unsubscribe();
     };
-  }, [sessionLoaded]);
+  }, [sessionLoaded, currentSession?.id]); // Add currentSession.id to dependencies
 
   const handleOnScroll = () => {
     const scrolled =
@@ -198,8 +207,8 @@ const ChatMainInterface = () => {
       },
     };
 
-    if (!chatMessages) {
-      // Start a new conversation if there are no existing messages
+    // Check for existing session
+    if (!currentSession?.id) {
       await startConversation(message);
       return;
     }
@@ -216,7 +225,7 @@ const ChatMainInterface = () => {
 
     // Ensure the user’s message is displayed before sending the message
     setTimeout(async () => {
-      await sendMessage({ message, id: sessionId }, dispatch);
+      await sendMessage({ message, id: currentSession.id }, dispatch);
     }, 0);
   };
 

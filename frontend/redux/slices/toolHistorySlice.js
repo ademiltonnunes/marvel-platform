@@ -4,6 +4,8 @@ import { fetchToolHistory } from '../thunks/toolHistory';
 
 const initialState = {
   data: null,
+  lastDoc: null,
+  hasMore: false,
   loading: true,
   error: null,
 };
@@ -12,7 +14,13 @@ const ToolHistorySlice = createSlice({
   name: 'toolHistory',
   initialState,
   reducers: {
-    // Define any synchronous reducers if needed
+    resetToolHistory: (state) => {
+      state.data = null;
+      state.lastDoc = null;
+      state.hasMore = false;
+      state.loading = true;
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -21,7 +29,20 @@ const ToolHistorySlice = createSlice({
         state.error = null;
       })
       .addCase(fetchToolHistory.fulfilled, (state, action) => {
-        state.data = action.payload;
+        if (action.meta.arg?.pagination) {
+          // For paginated requests, append new data
+          const newOutputs = action.payload.outputs.filter(
+            (newOutput) =>
+              !state.data?.some((existing) => existing.id === newOutput.id)
+          );
+          state.data = state.data ? [...state.data, ...newOutputs] : newOutputs;
+        } else {
+          // For non-paginated requests, replace data
+          state.data = action.payload.outputs;
+        }
+
+        state.lastDoc = action.payload.lastDoc;
+        state.hasMore = action.payload.hasMore;
         state.loading = false;
       })
       .addCase(fetchToolHistory.rejected, (state, action) => {
@@ -31,4 +52,5 @@ const ToolHistorySlice = createSlice({
   },
 });
 
+export const { resetToolHistory } = ToolHistorySlice.actions;
 export default ToolHistorySlice.reducer;

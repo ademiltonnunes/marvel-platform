@@ -1,12 +1,7 @@
-import { useEffect, useState } from 'react';
-
 import { Card, Grid, Typography } from '@mui/material';
-
-import Image from 'next/image';
 
 import { useRouter } from 'next/router';
 
-import ToolImage from '@/assets/images/BookImage.png';
 import IconToolTag from '@/assets/svg/toolStatusTag';
 
 import styles from './styles';
@@ -25,18 +20,6 @@ const ToolCard = (props) => {
   const handleRoute = () => {
     if (!active) return null;
     return router.push(`/${maskedToolUrl}`);
-  };
-
-  const renderImage = () => {
-    return (
-      <Grid {...styles.imageGridProps}>
-        <Image
-          src={logo || ToolImage}
-          alt="marvel logo"
-          {...styles.imageProps}
-        />
-      </Grid>
-    );
   };
 
   const renderTitle = () => {
@@ -74,7 +57,6 @@ const ToolCard = (props) => {
       <Card {...styles.cardProps(active)}>
         <Grid {...styles.bgSectionProps(backgroundImgURL)} />
         <Grid {...styles.toolDetailsGridProps}>
-          {/* {renderImage()} */}
           {renderTitle()}
           {renderStatusTag()}
         </Grid>

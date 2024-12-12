@@ -13,7 +13,6 @@ import styles from './styles';
 
 const ToolHistoryPage = () => {
   const { data, loading } = useSelector((state) => state.toolHistory);
-  console.log('toolSessions:', data); // Add this
 
   const { isHistoryEmpty, ...categorizedData } = useFilterByTime(data);
 

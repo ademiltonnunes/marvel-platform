@@ -98,6 +98,42 @@ const styles = {
       backgroundColor: theme.palette.Background.Default,
     }),
   },
+  emptyStateContainerProps: {
+    sx: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '100px',
+      width: '100%',
+    },
+  },
+  listBoxProps: {
+    sx: {
+      flex: 1,
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  },
+  loadMoreContainerProps: {
+    sx: {
+      p: 2,
+      textAlign: 'center',
+    },
+  },
+  loadMoreButtonProps: {
+    sx: (theme) => ({
+      fontFamily: 'Satoshi Medium',
+      color: theme.palette.Text.Primary,
+      fontSize: '14px',
+      fontWeight: '500',
+      textTransform: 'capitalize',
+      '&:hover': {
+        backgroundColor: theme.palette.Common.White['12p'],
+        color: theme.palette.primary.main,
+      },
+    }),
+  },
 };
 
 export default styles;

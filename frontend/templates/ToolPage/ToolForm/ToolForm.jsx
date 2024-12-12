@@ -18,13 +18,13 @@ import ALERT_COLORS from '@/constants/notification';
 import styles from './styles';
 
 import { AuthContext } from '@/providers/GlobalProvider';
+import { resetToolHistory } from '@/redux/slices/toolHistorySlice';
 import {
   setCommunicatorLoading,
   setFormOpen,
   setPrompt,
   setResponse,
 } from '@/redux/slices/toolsSlice';
-import { firestore } from '@/redux/store';
 import { fetchToolHistory } from '@/redux/thunks/toolHistory';
 import submitPrompt from '@/services/tools/submitPrompt';
 
@@ -67,7 +67,15 @@ const ToolForm = (props) => {
       dispatch(setResponse(response?.data));
       dispatch(setFormOpen(false));
       dispatch(setCommunicatorLoading(false));
-      dispatch(fetchToolHistory({ firestore }));
+      // Reset and fetch with tool history with pagination
+      dispatch(resetToolHistory());
+      dispatch(
+        fetchToolHistory({
+          toolId: id,
+          pagination: true,
+          pageSize: 5,
+        })
+      );
     } catch (error) {
       dispatch(setCommunicatorLoading(false));
       handleOpenSnackBar(

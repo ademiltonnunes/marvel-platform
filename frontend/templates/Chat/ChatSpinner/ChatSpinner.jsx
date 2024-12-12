@@ -10,7 +10,7 @@ const ChatSpinner = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setShowSpinner(true);
-    }, 1000); // add your desired delay in milliseconds here
+    }, 1000);
 
     return () => {
       clearTimeout(timeoutId);
@@ -18,12 +18,21 @@ const ChatSpinner = () => {
   }, []);
 
   return (
-    <Fade in={showSpinner} direction="up">
-      <Grid id="message" {...styles.mainGridProps}>
-        <Grid {...styles.messageWrapperProps(false)}>
-          <Box {...styles.mainProps} />
+    <Fade in={showSpinner}>
+      <Box {...styles.boxWrapperProps}>
+        <Grid
+          id="message"
+          container
+          item
+          mobileSmall={12}
+          alignItems="center"
+          {...styles.gridContainerProps}
+        >
+          <Grid {...styles.messageWrapperProps(false)}>
+            <Box {...styles.mainProps} />
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </Fade>
   );
 };

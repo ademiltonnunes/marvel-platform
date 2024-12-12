@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Box, Grid, Typography, useTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ToggleScreen from '@/components/ToggleScreen';
 import ToolOutputHistoryDrawer from '@/components/ToolOutputHistoryDrawer';
@@ -13,6 +13,11 @@ import IconHistoryOpen from '@/assets/svg/ChatIconOpenChatHistory.svg';
 import { TOOLS_ID } from '@/constants/tools';
 
 import styles from './styles';
+
+import { resetToolHistory } from '@/redux/slices/toolHistorySlice';
+import { fetchToolHistory } from '@/redux/thunks/toolHistory';
+
+const PAGE_SIZE = 5;
 
 const StyledArrow = ({ isOpen }) => {
   const theme = useTheme();
@@ -42,39 +47,54 @@ const EmptyState = () => (
   </Box>
 );
 
-const OutputHistory = () => {
-  const { data, loading } = useSelector((state) => state.toolHistory);
+const OutputHistory = ({ toolId }) => {
+  const dispatch = useDispatch();
+  const { data, loading, hasMore, lastDoc } = useSelector(
+    (state) => state.toolHistory
+  );
   const [openDrawer, setOpenDrawer] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  // Only fetch when toolId changes
+  useEffect(() => {
+    if (toolId) {
+      dispatch(resetToolHistory());
+      dispatch(
+        fetchToolHistory({
+          toolId,
+          pagination: true,
+          pageSize: PAGE_SIZE,
+        })
+      );
+    }
+  }, [toolId]);
 
   const transformedData = React.useMemo(() => {
     if (!data) return [];
 
-    return Object.entries(data)
-      .map(([id, session]) => {
-        let date;
-        try {
-          if (session.createdAt?.seconds) {
-            date = new Date(session.createdAt.seconds * 1000).toISOString();
-          } else {
-            date = session.createdAt;
-          }
-        } catch (error) {
-          date = new Date().toISOString();
+    return data.map((session) => {
+      let date;
+      try {
+        if (session.createdAt?.seconds) {
+          date = new Date(session.createdAt.seconds * 1000).toISOString();
+        } else {
+          date = session.createdAt;
         }
+      } catch (error) {
+        date = new Date().toISOString();
+      }
 
-        return {
-          id,
-          date,
-          title: `${
-            session.toolId === TOOLS_ID.GEMINI_DYNAMO ? 'Flashcards' : 'Quiz'
-          }: ${session.topic}`,
-          type: session.toolId,
-          count: session.response ? Object.keys(session.response).length : 0,
-          originalData: session,
-        };
-      })
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
+      return {
+        id: session.id,
+        date,
+        title: `${
+          session.toolId === TOOLS_ID.GEMINI_DYNAMO ? 'Flashcards' : 'Quiz'
+        }: ${session.topic}`,
+        type: session.toolId,
+        count: session.response ? Object.keys(session.response).length : 0,
+        originalData: session,
+      };
+    });
   }, [data]);
 
   const handleItemClick = (item) => {
@@ -92,7 +112,20 @@ const OutputHistory = () => {
     setSelectedItem(null);
   };
 
-  if (loading) {
+  const handleLoadMore = () => {
+    if (hasMore && !loading) {
+      dispatch(
+        fetchToolHistory({
+          toolId,
+          pagination: true,
+          pageSize: PAGE_SIZE,
+          lastDoc,
+        })
+      );
+    }
+  };
+
+  if (loading && !data?.length) {
     return (
       <Grid {...styles.mainGridProps}>
         <Box sx={{ p: 2, textAlign: 'center' }}>
@@ -114,6 +147,10 @@ const OutputHistory = () => {
           startIcon={StartIcon}
           endIcon={StyledArrow}
           emptyComponent={<EmptyState />}
+          loading={loading}
+          hasMore={hasMore}
+          onLoadMore={handleLoadMore}
+          loadMoreCount={PAGE_SIZE}
           {...styles.toggleScreenProps}
         />
       </Grid>

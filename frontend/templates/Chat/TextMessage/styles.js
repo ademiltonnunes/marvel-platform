@@ -7,6 +7,12 @@ const styles = {
     justifyContent: isMyMessage ? 'flex-end' : 'flex-start',
     mt: 3,
   }),
+  boxWrapperProps: {
+    sx: {
+      width: '100%',
+      mt: 3,
+    },
+  },
   messageProps: (isMyMessage) => ({
     sx: {
       width: '100%',

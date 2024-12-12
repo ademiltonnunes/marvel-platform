@@ -41,13 +41,13 @@ const Banner = () => {
   const renderTitle = () => (
     <Box flex={1} mx={2} maxWidth="48%">
       <Typography {...styles.titleProps}>
-        Hello! Welcome to Kai Tools. 👋
+        Hello! Welcome to Marvel Tools. 👋
       </Typography>
       <Typography {...styles.subtitleProps}>
         Made for{' '}
         <Typography {...styles.highlightTextProps}>educators</Typography>.
-        Hello! I&#39;m Kai, your AI teaching assistant. We are here to support
-        you on your journey as a
+        Hello! I&#39;m Marvel, your AI teaching assistant. We are here to
+        support you on your journey as a
         <Typography {...styles.boldTextProps}> teacher, mentor,</Typography> and
         <Typography {...styles.boldTextProps}> more!</Typography>
       </Typography>

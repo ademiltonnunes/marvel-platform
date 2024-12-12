@@ -5,7 +5,6 @@ admin.initializeApp();
 
 const userController = require('./controllers/userController');
 const marvelAIController = require('./controllers/marvelAIController');
-const chatSessionsController = require('./controllers/chatSessionsController');
 const { seedDatabase } = require('./cloud_db_seed');
 
 seedDatabase();
@@ -23,8 +22,6 @@ module.exports = {
   chat: marvelAIController.chat,
   tool: marvelAIController.tool,
   createChatSession: marvelAIController.createChatSession,
-  getChatSessions: chatSessionsController.getChatSessions,
-  getMessages: chatSessionsController.getMessages,
   /* Migration Scripts - For running  */
   ...migrationScripts,
 };
