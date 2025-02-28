@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
+
 import { Button, Fade, Grid, TextField, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import UnsavedChangesAlert from '@/tools/components/UnsavedChangesAlert';
+import { useSelector } from 'react-redux';
+
 import styles from './styles';
+
+import UnsavedChangesAlert from '@/tools/components/UnsavedChangesAlert';
 
 /**
  * PresentationOutliner component renders a list of slides with their titles and content.

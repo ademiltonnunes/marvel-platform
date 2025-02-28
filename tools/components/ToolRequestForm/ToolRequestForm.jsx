@@ -458,6 +458,8 @@ const ToolRequestForm = (props) => {
           validation={isRequired ? { required: 'Field is required' } : {}}
           ref={register}
           rows={6}
+          setValue={setValue}
+          handleOpenSnackBar={handleOpenSnackBar}
           extraInputProps={{
             style: { resize: 'vertical' },
           }}
