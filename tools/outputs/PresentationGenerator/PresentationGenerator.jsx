@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { Grid } from '@mui/material';
 
-import PresentationOutliner from '../PresentationOutliner/PresentationOutliner';
-import PresentationSlides from '../PresentationSlides/PresentationSlides';
+import PresentationOutliner from './PresentationOutliner';
+import PresentationSlides from './PresentationSlides';
 
 import styles from './styles';
 
