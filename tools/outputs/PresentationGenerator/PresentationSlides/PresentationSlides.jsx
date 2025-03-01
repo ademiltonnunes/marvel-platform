@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -42,6 +42,24 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
   const handleSlideSelect = (index) => {
     setCurrentSlideIndex(index);
   };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowLeft') {
+        handlePrevSlide();
+      } else if (event.key === 'ArrowRight') {
+        handleNextSlide();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    
+    // Clean up event listener on component unmount
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentSlideIndex]); // Re-add listener if currentSlideIndex changes
 
   // Current slide
   const currentSlide = slides[currentSlideIndex] || { title: '', content: '' };
@@ -194,7 +212,10 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
               }}
             >
               <Typography variant="body1" sx={{ mb: 2 }}>
-                Slide {currentSlideIndex + 1} of {slides.length}
+                Slide {currentSlideIndex + 1} of {slides.length} 
+                <span style={{ color: '#8A8A8A', fontSize: '0.8em', marginLeft: '10px' }}>
+                  (Use ← → arrow keys to navigate)
+                </span>
               </Typography>
 
               {/* Slide content */}
