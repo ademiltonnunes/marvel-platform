@@ -118,12 +118,12 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                 backgroundColor: '#1C1233',
                 borderRadius: '10px 0 0 10px',
                 padding: 2,
+                height: '76.5vh', // Match the main content box height
                 overflowY: 'auto',
-                maxHeight: '80vh',
                 border: 'none',
               }}
             >
-              <List>
+              <List sx={{ height: '100%' }}>
                 {slides.map((slide, index) => (
                   <ListItem
                     key={index}
@@ -149,8 +149,11 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                           <Typography
                             sx={{
                               color: styles.slideTitleProps?.color || '#AC92FF',
-                              fontWeight:
-                                currentSlideIndex === index ? 'bold' : 'normal',
+                              fontWeight: currentSlideIndex === index ? 'bold' : 'normal',
+                              width: '100%',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap'
                             }}
                           >
                             {`${index + 1}. ${slide.title}`}
@@ -163,12 +166,12 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                               color: styles.slideContentProps?.color || 'white',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
-                              display: '-webkit-box',
-                              WebkitLineClamp: 2,
-                              WebkitBoxOrient: 'vertical',
+                              whiteSpace: 'nowrap',
+                              width: '200px', // Fixed width
+                              maxWidth: '100%'
                             }}
                           >
-                            {slide.content}
+                            {slide.content.split(' ').slice(0, 6).join(' ') + '...'}
                           </Typography>
                         }
                       />
@@ -189,7 +192,7 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                 backgroundColor: 'transparent',
                 border: 'none',
                 width: '63%',
-                height: 'auto',
+                // height: 'auto',
                 paddingTop: '22px',
               }}
             >
@@ -203,14 +206,16 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                   backgroundColor: '#1C1233',
                   borderRadius: '0 10px 10px 0',
                   padding: 4,
-                  minHeight: '60vh',
+                  height: '60vh', // Fixed height
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'center',
+                  justifyContent: 'flex-start', // Changed from center
                   textAlign: 'center',
                   mb: 4,
+                  ml:-2,
                   width: '100%',
                   border: 'none',
+                  overflow: 'hidden', // Hide overflow
                 }}
               >
                 <Typography
@@ -230,6 +235,9 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                     color: styles.slideContentProps?.color,
                     fontFamily: styles.slideContentProps?.fontFamily,
                     fontSize: styles.slideContentProps?.fontSize,
+                    overflow: 'auto', // Add scrollbar when needed
+                    flex: 1, // Take remaining space
+                    paddingRight: 2, // Space for scrollbar
                   }}
                 >
                   {currentSlide.content}

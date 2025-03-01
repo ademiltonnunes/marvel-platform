@@ -1,8 +1,15 @@
 import React, { useEffect } from 'react';
 
-import { Button, Fade, Grid, TextField, Typography } from '@mui/material';
+import { Button, Fade, Grid, TextField, Typography, Fab } from '@mui/material';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
+import AddIcon from '@mui/icons-material/Add';
+import { 
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import styles from './styles';
 
@@ -106,58 +113,133 @@ const PresentationOutliner = ({
     const { title, content } = slide;
 
     return (
-      <Draggable
-        key={`slide-${index}`}
-        draggableId={`slide-${index}`}
-        index={index}
-      >
+      <Draggable key={`slide-${index}`} draggableId={`slide-${index}`} index={index}>
         {(provided) => (
-          <Grid
+          <div
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
-            {...styles.slideGridProps}
+            style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '16px' }}
           >
-            <Grid container justifyContent="space-between" alignItems="center">
-              <Typography {...styles.slideNumberProps}>{index + 1}.</Typography>
-              <Button
-                onClick={() => handleRemoveSlide(index)}
-                sx={styles.removeButton}
+            <div style={{ flex: 1 }}>
+              <Accordion 
+                sx={{ 
+                  width: '100%', 
+                  bgcolor: '#1C1233',
+                  color: 'white',
+                  '& .MuiAccordionSummary-root': {
+                    color: 'white',
+                  },
+                  '& .MuiAccordionDetails-root': {
+                    color: 'white',
+                  },
+                  '& .MuiSvgIcon-root': {
+                    color: 'rgba(105, 73, 255, 1)',
+                  }
+                }}
               >
-                ×
-              </Button>
-            </Grid>
-            <TextField
-              value={title}
-              onChange={(e) => handleEditSlide(index, 'title', e.target.value)}
-              fullWidth
-              sx={styles.slideTitleProps?.sx}
-              InputProps={{
-                sx: {
-                  color: styles.slideTitleProps?.color,
-                  fontFamily: styles.slideTitleProps?.fontFamily,
-                  fontSize: styles.slideTitleProps?.fontSize,
-                },
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  sx={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    '& .MuiAccordionSummary-content': {
+                      margin: '12px 0',
+                    }
+                  }}
+                >
+                  <Grid container alignItems="center" spacing={2}>
+                    <Grid item>
+                      <Typography {...styles.slideNumberProps}>
+                        {index + 1}.
+                      </Typography>
+                    </Grid>
+                    <Grid item xs>
+                      <TextField
+                        value={title}
+                        onChange={(e) => handleEditSlide(index, 'title', e.target.value)}
+                        fullWidth
+                        sx={{ 
+                          ...styles.slideTitleProps?.sx,
+                          '& .MuiInputBase-input': {
+                            padding: '0px 8px',
+                            width: '100%', // Ensure full width
+                            minWidth: '300px', // Set minimum width
+                          },
+                          '& .MuiInputBase-root': {
+                            width: '100%', // Ensure the input container is full width
+                          }
+                        }}
+                        InputProps={{
+                          sx: {
+                            color: styles.slideTitleProps?.color,
+                            fontFamily: styles.slideTitleProps?.fontFamily,
+                            fontSize: styles.slideTitleProps?.fontSize,
+                            width: '100%', // Ensure the input wrapper is full width
+                          },
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                    </Grid>
+                  </Grid>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <TextField
+                    value={content}
+                    onChange={(e) => handleEditSlide(index, 'content', e.target.value)}
+                    fullWidth
+                    multiline
+                    rows={4}
+                    sx={{
+                      ...styles.slideContentProps?.sx,
+                      '& .MuiInputBase-root': {
+                        color: '#AC92FF',
+                        backgroundColor: 'transparent',
+                      },
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'rgba(105, 73, 255, 0.3)',
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'rgba(105, 73, 255, 0.5)',
+                      },
+                    }}
+                    InputProps={{
+                      sx: {
+                        color: 'white',
+                        fontFamily: styles.slideContentProps?.fontFamily,
+                        fontSize: styles.slideContentProps?.fontSize,
+                      },
+                    }}
+                  />
+                </AccordionDetails>
+              </Accordion>
+            </div>
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleRemoveSlide(index);
               }}
-            />
-            <TextField
-              value={content}
-              onChange={(e) =>
-                handleEditSlide(index, 'content', e.target.value)
-              }
-              fullWidth
-              multiline
-              rows={4}
-              sx={styles.slideContentProps?.sx}
-              InputProps={{
-                sx: {
-                  color: styles.slideContentProps?.color,
-                  fontFamily: styles.slideContentProps?.fontFamily,
-                  fontSize: styles.slideContentProps?.fontSize,
+              sx={{
+                minWidth: '32px',
+                width: '32px',
+                height: '32px',
+                padding: 0,
+                borderRadius: '50%',
+                color: '#AC92FF',
+                '&:hover': {
+                  backgroundColor: 'rgba(172, 146, 255, 0.04)',
+                  color: '#fff',
                 },
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '20px',
+                fontWeight: 'bold',
               }}
-            />
-          </Grid>
+            >
+              ×
+            </Button>
+          </div>
         )}
       </Draggable>
     );
@@ -183,51 +265,57 @@ const PresentationOutliner = ({
   };
 
   return (
-    <Fade in>
-      <Grid container item xs={12} direction="column" width="100%">
-        <Typography {...styles.presentationTitleProps}>
-          Presentation Detail
-        </Typography>
+    <div style={{ position: 'relative', width: '100%' }}>
+      <Fade in>
+        <Grid container item xs={12} direction="column" width="100%">
+          <Typography {...styles.presentationTitleProps}>
+            Presentation Detail
+          </Typography>
 
-        {/* Show unsaved changes alert */}
-        {unsavedChanges && (
-          <UnsavedChangesAlert
-            onSave={handleSaveChanges}
-            onRevert={handleRevertChanges}
-          />
-        )}
+          {/* Show unsaved changes alert */}
+          {unsavedChanges && (
+            <UnsavedChangesAlert
+              onSave={handleSaveChanges}
+              onRevert={handleRevertChanges}
+            />
+          )}
 
-        {/* Render the slides */}
-        {slides.length > 0 ? (
-          renderSlides()
-        ) : (
-          <Typography>No slides available.</Typography>
-        )}
+          {/* Render the slides */}
+          {slides.length > 0 ? (
+            renderSlides()
+          ) : (
+            <Typography>No slides available.</Typography>
+          )}
 
-        {/* Add new control buttons */}
-        <Grid {...styles.actionButtonGridProps}>
-          <Grid item>
-            <Button
-              onClick={handleAddSlide}
-              sx={{
-                ...styles.generateButtonProps?.sx,
-                backgroundColor: 'primary.light',
-              }}
-            >
-              Add Slide
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              onClick={handleGeneratePresentation}
-              sx={styles.generateButtonProps?.sx}
-            >
-              Generate presentation
-            </Button>
+          {/* Add new control buttons */}
+          <Grid {...styles.actionButtonGridProps}>
+            <Grid item>
+              <Button
+                onClick={handleGeneratePresentation}
+                sx={styles.generateButtonProps?.sx}
+              >
+                Generate presentation
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </Fade>
+      </Fade>
+
+      {/* Floating Add Slide button - outside of Fade */}
+      <Fab
+        color="primary"
+        onClick={handleAddSlide}
+        sx={{
+          position: 'fixed',
+          bottom: '4rem',
+          // right: '30rem',
+          right: {desktop: '10rem', desktopMedium:'15rem', laptop:'5rem'},
+          zIndex: 1000,
+        }}
+      >
+        <AddIcon />
+      </Fab>
+    </div>
   );
 };
 
