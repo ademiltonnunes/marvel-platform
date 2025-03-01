@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {
   Box,
   Button,
@@ -13,9 +13,9 @@ import {
   ListItemButton,
   ListItemText,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 
-import styles from './styles';
+import styles from "./styles";
 
 /**
  * PresentationSlides component renders the actual presentation view
@@ -46,50 +46,50 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === 'ArrowLeft') {
+      if (event.key === "ArrowLeft") {
         handlePrevSlide();
-      } else if (event.key === 'ArrowRight') {
+      } else if (event.key === "ArrowRight") {
         handleNextSlide();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    
+    window.addEventListener("keydown", handleKeyDown);
+
     // Clean up event listener on component unmount
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [currentSlideIndex]); // Re-add listener if currentSlideIndex changes
 
   // Current slide
-  const currentSlide = slides[currentSlideIndex] || { title: '', content: '' };
+  const currentSlide = slides[currentSlideIndex] || { title: "", content: "" };
 
   return (
     <Fade in>
       {/* Main container with forceful style overrides */}
       <Box
         sx={{
-          backgroundColor: 'transparent !important',
-          border: 'none !important',
-          '& *': {
-            border: 'none !important',
+          backgroundColor: "transparent !important",
+          border: "none !important",
+          "& *": {
+            border: "none !important",
           },
-          width: '1440px',
+          width: "1440px",
         }}
       >
         <Grid
           container
           sx={{
-            width: '80vw',
-            maxWidth: '100%',
-            boxSizing: 'border-box',
-            paddingLeft: '10px',
-            paddingRight: '10px',
-            margin: '0 auto',
-            display: 'flex',
-            border: 'none',
-            marginTop: '-70px',
-            marginBottom: '-62px',
+            width: "80vw",
+            maxWidth: "100%",
+            boxSizing: "border-box",
+            paddingLeft: "10px",
+            paddingRight: "10px",
+            margin: "0 auto",
+            display: "flex",
+            border: "none",
+            marginTop: "-70px",
+            marginBottom: "-62px",
           }}
         >
           {/* Header with back button */}
@@ -98,8 +98,8 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
             xs={12}
             {...styles.slideControlsContainer}
             sx={{
-              backgroundColor: 'transparent',
-              border: 'none',
+              backgroundColor: "transparent",
+              border: "none",
               ...(styles.slideControlsContainer?.sx || {}),
             }}
           >
@@ -107,8 +107,8 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
               startIcon={<ArrowBackIcon />}
               onClick={onBackToOutliner}
               sx={{
-                color: styles.slideTitleProps?.color || '#AC92FF',
-                backgroundColor: 'transparent',
+                color: styles.slideTitleProps?.color || "#AC92FF",
+                backgroundColor: "transparent",
               }}
             >
               Back to Outliner
@@ -121,11 +121,11 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
             item
             xs={12}
             sx={{
-              minHeight: '80vh',
-              width: '100%',
-              display: 'flex',
-              backgroundColor: 'transparent',
-              border: 'none',
+              minHeight: "80vh",
+              width: "100%",
+              display: "flex",
+              backgroundColor: "transparent",
+              border: "none",
             }}
           >
             {/* Sidebar with all slide details */}
@@ -133,12 +133,12 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
               item
               xs={3}
               sx={{
-                backgroundColor: '#1C1233',
-                borderRadius: '10px 0 0 10px',
+                backgroundColor: "#1C1233",
+                borderRadius: "10px 0 0 10px",
                 padding: 2,
-                overflowY: 'auto',
-                maxHeight: '80vh',
-                border: 'none',
+                overflowY: "auto",
+                maxHeight: "80vh",
+                border: "none",
               }}
             >
               <List>
@@ -149,26 +149,26 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                     sx={{
                       mb: 1,
                       backgroundColor:
-                        currentSlideIndex === index ? '#2A1B4A' : 'transparent',
-                      borderRadius: '6px',
-                      border: 'none',
+                        currentSlideIndex === index ? "#2A1B4A" : "transparent",
+                      borderRadius: "6px",
+                      border: "none",
                     }}
                   >
                     <ListItemButton
                       onClick={() => handleSlideSelect(index)}
                       sx={{
-                        borderRadius: '6px',
-                        '&:hover': { backgroundColor: '#2A1B4A' },
-                        border: 'none',
+                        borderRadius: "6px",
+                        "&:hover": { backgroundColor: "#2A1B4A" },
+                        border: "none",
                       }}
                     >
                       <ListItemText
                         primary={
                           <Typography
                             sx={{
-                              color: styles.slideTitleProps?.color || '#AC92FF',
+                              color: styles.slideTitleProps?.color || "#AC92FF",
                               fontWeight:
-                                currentSlideIndex === index ? 'bold' : 'normal',
+                                currentSlideIndex === index ? "bold" : "normal",
                             }}
                           >
                             {`${index + 1}. ${slide.title}`}
@@ -176,14 +176,14 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                         }
                         secondary={
                           <Typography
-                            variant="body2"
+                            variant='body2'
                             sx={{
-                              color: styles.slideContentProps?.color || 'white',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              display: '-webkit-box',
+                              color: styles.slideContentProps?.color || "white",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              display: "-webkit-box",
                               WebkitLineClamp: 2,
-                              WebkitBoxOrient: 'vertical',
+                              WebkitBoxOrient: "vertical",
                             }}
                           >
                             {slide.content}
@@ -201,19 +201,25 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
               item
               xs={9}
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
+                display: "flex",
+                flexDirection: "column",
                 padding: 4,
-                backgroundColor: 'transparent',
-                border: 'none',
-                width: '63%',
-                height: 'auto',
-                paddingTop: '22px',
+                backgroundColor: "transparent",
+                border: "none",
+                width: "63%",
+                height: "auto",
+                paddingTop: "22px",
               }}
             >
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                Slide {currentSlideIndex + 1} of {slides.length} 
-                <span style={{ color: '#8A8A8A', fontSize: '0.8em', marginLeft: '10px' }}>
+              <Typography variant='body1' sx={{ mb: 2 }}>
+                Slide {currentSlideIndex + 1} of {slides.length}
+                <span
+                  style={{
+                    color: "#8A8A8A",
+                    fontSize: "0.8em",
+                    marginLeft: "10px",
+                  }}
+                >
                   (Use ← → arrow keys to navigate)
                 </span>
               </Typography>
@@ -221,21 +227,21 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
               {/* Slide content */}
               <Box
                 sx={{
-                  backgroundColor: '#1C1233',
-                  borderRadius: '0 10px 10px 0',
+                  backgroundColor: "#1C1233",
+                  borderRadius: "0 10px 10px 0",
                   padding: 4,
-                  minHeight: '60vh',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  textAlign: 'center',
+                  minHeight: "60vh",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  textAlign: "center",
                   mb: 4,
-                  width: '100%',
-                  border: 'none',
+                  width: "100%",
+                  border: "none",
                 }}
               >
                 <Typography
-                  variant="h3"
+                  variant='h3'
                   sx={{
                     mb: 4,
                     color: styles.slideTitleProps?.color,
@@ -247,7 +253,7 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                 </Typography>
                 <Typography
                   sx={{
-                    whiteSpace: 'pre-wrap',
+                    whiteSpace: "pre-wrap",
                     color: styles.slideContentProps?.color,
                     fontFamily: styles.slideContentProps?.fontFamily,
                     fontSize: styles.slideContentProps?.fontSize,
@@ -260,11 +266,11 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
               {/* Navigation controls */}
               <Grid
                 container
-                justifyContent="center"
+                justifyContent='center'
                 spacing={2}
                 sx={{
-                  backgroundColor: 'transparent',
-                  border: 'none',
+                  backgroundColor: "transparent",
+                  border: "none",
                 }}
               >
                 <Grid item>
@@ -273,10 +279,10 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                     disabled={currentSlideIndex === 0}
                     sx={{
                       color: styles.slideTitleProps?.color,
-                      backgroundColor: '#1C1233',
-                      '&:hover': { backgroundColor: '#2A1B4A' },
-                      '&.Mui-disabled': { color: 'text.disabled' },
-                      border: 'none',
+                      backgroundColor: "#1C1233",
+                      "&:hover": { backgroundColor: "#2A1B4A" },
+                      "&.Mui-disabled": { color: "text.disabled" },
+                      border: "none",
                     }}
                   >
                     <ArrowBackIcon />
@@ -288,10 +294,10 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                     disabled={currentSlideIndex === slides.length - 1}
                     sx={{
                       color: styles.slideTitleProps?.color,
-                      backgroundColor: '#1C1233',
-                      '&:hover': { backgroundColor: '#2A1B4A' },
-                      '&.Mui-disabled': { color: 'text.disabled' },
-                      border: 'none',
+                      backgroundColor: "#1C1233",
+                      "&:hover": { backgroundColor: "#2A1B4A" },
+                      "&.Mui-disabled": { color: "text.disabled" },
+                      border: "none",
                     }}
                   >
                     <ArrowForwardIcon />
