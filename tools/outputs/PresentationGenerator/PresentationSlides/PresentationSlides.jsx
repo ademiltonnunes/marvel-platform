@@ -29,7 +29,11 @@ import {
   TwoColumnSlide,
 } from "../../../components/SlideTemplates";
 
-import { SLIDE_TEMPLATE_TYPES } from "../../../libs/constants/slideTemplates";
+import {
+  SLIDE_TEMPLATE_TYPES,
+  SLIDE_TEMPLATE_DEFINITIONS,
+  MOCK_SLIDE_DATA,
+} from "../../../libs/constants/slideTemplates";
 
 import styles from "./styles";
 
