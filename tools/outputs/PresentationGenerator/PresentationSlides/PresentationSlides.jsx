@@ -25,7 +25,6 @@ import GoogleSlidesButton from '@/tools/components/GoogleSlidesButton/GoogleSlid
  * PresentationSlides component renders the actual presentation view
  * with navigation controls to move between slides and a sidebar with all slide details
  * Using modern Google Identity Services for authentication
- * Using modern Google Identity Services for authentication
  */
 const PresentationSlides = ({ slides, onBackToOutliner }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
