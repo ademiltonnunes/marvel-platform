@@ -201,13 +201,13 @@ const PresentationSlides = ({ onBackToOutliner }) => {
                 backgroundColor: "#1C1233",
                 borderRadius: "10px 0 0 10px",
                 padding: 2,
+                height: "76.5vh", // Match the main content box height
                 overflowY: "auto",
-                maxHeight: "80vh",
                 border: "none",
               }}
             >
               <List>
-                {response.map((slide, index) => (
+                {slides.map((slide, index) => (
                   <ListItem
                     key={index}
                     disablePadding
@@ -253,7 +253,8 @@ const PresentationSlides = ({ onBackToOutliner }) => {
                               WebkitBoxOrient: "vertical",
                             }}
                           >
-                            {slide.content}
+                            {slide.content.split(" ").slice(0, 6).join(" ") +
+                              "..."}
                           </Typography>
                         }
                       />
@@ -326,6 +327,9 @@ const PresentationSlides = ({ onBackToOutliner }) => {
                     color: styles.slideContentProps?.color,
                     fontFamily: styles.slideContentProps?.fontFamily,
                     fontSize: styles.slideContentProps?.fontSize,
+                    overflow: 'auto', // Add scrollbar when needed
+                    flex: 1, // Take remaining space
+                    paddingRight: 2, // Space for scrollbar
                   }}
                 >
                   {currentSlide.content}
