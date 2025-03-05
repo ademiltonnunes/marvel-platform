@@ -1,10 +1,12 @@
-import React from 'react';
-import { Grid, Typography, List, ListItem } from '@mui/material';
-import styles from './styles';
+import React from "react";
+
+import { Grid, List, ListItem, Typography } from "@mui/material";
+
+import styles from "./styles";
 
 /**
  * Title and Bullets Slide template with a title and bullet points
- * 
+ *
  * @param {Object} props - Component props
  * @param {string} props.title - Slide title
  * @param {Array<string>} props.bullets - Array of bullet point texts

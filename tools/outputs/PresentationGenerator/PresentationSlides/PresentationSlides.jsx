@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+
 import {
   Box,
   Button,
+  Divider,
   Fade,
   Grid,
   IconButton,
@@ -12,8 +14,22 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Paper,
   Typography,
 } from "@mui/material";
+
+import { useSelector } from "react-redux";
+
+import {
+  SectionHeaderSlide,
+  TitleAndBodySlide,
+  TitleAndBulletsSlide,
+  TitleAndImageSlide,
+  TitleSlide,
+  TwoColumnSlide,
+} from "../../../components/SlideTemplates";
+
+import { SLIDE_TEMPLATE_TYPES } from "../../../libs/constants/slideTemplates";
 
 import styles from "./styles";
 
@@ -21,8 +37,27 @@ import styles from "./styles";
  * PresentationSlides component renders the actual presentation view
  * with navigation controls to move between slides and a sidebar with all slide details
  */
-const PresentationSlides = ({ slides, onBackToOutliner }) => {
+const PresentationSlides = ({ onBackToOutliner }) => {
+  const { response } = useSelector((state) => state.tools);
+
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  // Check if response is available and properly formatted
+  if (!response || !Array.isArray(response)) {
+    return (
+      <Fade in>
+        <Grid container spacing={2} sx={{ padding: "20px" }}>
+          <Grid item xs={12}>
+            <Paper sx={{ padding: "20px", textAlign: "center" }}>
+              <Typography variant='h6'>
+                No presentation data available.
+              </Typography>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Fade>
+    );
+  }
 
   // Navigate to previous slide
   const handlePrevSlide = () => {
@@ -33,7 +68,7 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
 
   // Navigate to next slide
   const handleNextSlide = () => {
-    if (currentSlideIndex < slides.length - 1) {
+    if (currentSlideIndex < response.length - 1) {
       setCurrentSlideIndex(currentSlideIndex + 1);
     }
   };
@@ -62,7 +97,33 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
   }, [currentSlideIndex]); // Re-add listener if currentSlideIndex changes
 
   // Current slide
-  const currentSlide = slides[currentSlideIndex] || { title: "", content: "" };
+  // const currentSlide = slides[currentSlideIndex] || { title: "", content: "" };
+
+  // Render slide based on its type
+  const renderSlide = (slide) => {
+    const { type, data } = slide;
+
+    switch (type) {
+      case SLIDE_TEMPLATE_TYPES.TITLE:
+        return <TitleSlide {...data} />;
+      case SLIDE_TEMPLATE_TYPES.TITLE_AND_BODY:
+        return <TitleAndBodySlide {...data} />;
+      case SLIDE_TEMPLATE_TYPES.TITLE_AND_BULLETS:
+        return <TitleAndBulletsSlide {...data} />;
+      case SLIDE_TEMPLATE_TYPES.TWO_COLUMN:
+        return <TwoColumnSlide {...data} />;
+      case SLIDE_TEMPLATE_TYPES.SECTION_HEADER:
+        return <SectionHeaderSlide {...data} />;
+      case SLIDE_TEMPLATE_TYPES.TITLE_AND_IMAGE:
+        return <TitleAndImageSlide {...data} />;
+      default:
+        return (
+          <Paper sx={{ padding: "20px", margin: "20px 0" }}>
+            <Typography>Unknown slide type: {type}</Typography>
+          </Paper>
+        );
+    }
+  };
 
   return (
     <Fade in>
@@ -142,7 +203,7 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
               }}
             >
               <List>
-                {slides.map((slide, index) => (
+                {response.map((slide, index) => (
                   <ListItem
                     key={index}
                     disablePadding
@@ -171,7 +232,9 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                                 currentSlideIndex === index ? "bold" : "normal",
                             }}
                           >
-                            {`${index + 1}. ${slide.title}`}
+                            {`${index + 1}. ${
+                              slide.data?.title || "Slide" + (index + 1)
+                            }`}
                           </Typography>
                         }
                         secondary={
@@ -212,7 +275,7 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
               }}
             >
               <Typography variant='body1' sx={{ mb: 2 }}>
-                Slide {currentSlideIndex + 1} of {slides.length}
+                Slide {currentSlideIndex + 1} of {response.length}
                 <span
                   style={{
                     color: "#8A8A8A",
@@ -240,7 +303,9 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                   border: "none",
                 }}
               >
-                <Typography
+                {response[currentSlideIndex] &&
+                  renderSlide(response[currentSlideIndex])}
+                {/* <Typography
                   variant='h3'
                   sx={{
                     mb: 4,
@@ -250,8 +315,8 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                   }}
                 >
                   {currentSlide.title}
-                </Typography>
-                <Typography
+                </Typography> */}
+                {/* <Typography
                   sx={{
                     whiteSpace: "pre-wrap",
                     color: styles.slideContentProps?.color,
@@ -260,7 +325,7 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                   }}
                 >
                   {currentSlide.content}
-                </Typography>
+                </Typography> */}
               </Box>
 
               {/* Navigation controls */}
@@ -291,7 +356,7 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                 <Grid item>
                   <IconButton
                     onClick={handleNextSlide}
-                    disabled={currentSlideIndex === slides.length - 1}
+                    disabled={currentSlideIndex === response.length - 1}
                     sx={{
                       color: styles.slideTitleProps?.color,
                       backgroundColor: "#1C1233",

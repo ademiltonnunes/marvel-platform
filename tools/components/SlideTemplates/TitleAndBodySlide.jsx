@@ -1,10 +1,12 @@
-import React from 'react';
-import { Grid, Typography } from '@mui/material';
-import styles from './styles';
+import React from "react";
+
+import { Grid, Typography } from "@mui/material";
+
+import styles from "./styles";
 
 /**
  * Title and Body Slide template with a title and paragraph of text
- * 
+ *
  * @param {Object} props - Component props
  * @param {string} props.title - Slide title
  * @param {string} props.body - Main paragraph text
