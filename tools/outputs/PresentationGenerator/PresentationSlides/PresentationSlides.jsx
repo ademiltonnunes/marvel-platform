@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {
   Alert,
   Box,
@@ -16,9 +15,6 @@ import {
   ListItemText,
   Snackbar,
   Typography,
-  Snackbar,
-  Alert,
-  CircularProgress,
 } from '@mui/material';
 
 import styles from './styles';
@@ -102,8 +98,6 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
             sx={{
               backgroundColor: 'transparent',
               border: 'none',
-              display: 'flex',
-              justifyContent: 'space-between',
               display: 'flex',
               justifyContent: 'space-between',
               ...(styles.slideControlsContainer?.sx || {}),
