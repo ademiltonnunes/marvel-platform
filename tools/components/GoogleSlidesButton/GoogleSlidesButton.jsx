@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, Tooltip } from '@mui/material';
 
 import styles from './styles';
 
@@ -10,9 +10,22 @@ const GoogleSlidesButton = ({ slides, setNotification }) => {
   const [gisLoaded, setGisLoaded] = useState(false);
   const [tokenClient, setTokenClient] = useState(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [credentialsAvailable, setCredentialsAvailable] = useState(false);
+
+  // Check if required environment variables are available once at component mount
+  useEffect(() => {
+    const hasCredentials = Boolean(
+      process.env.NEXT_PUBLIC_GOOGLE_API_KEY && 
+      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+    );
+    
+    setCredentialsAvailable(hasCredentials);
+  }, []);
 
   // Initialize GAPI client
   const initializeGapiClient = async () => {
+    if (!credentialsAvailable) return;
+
     await window.gapi.load('client', async () => {
       await window.gapi.client.init({
         apiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
@@ -23,9 +36,11 @@ const GoogleSlidesButton = ({ slides, setNotification }) => {
       setGapiLoaded(true);
     });
   };
+
   // Load the Google API and Identity Services libraries
   useEffect(() => {
-    // Function to load Google API
+    if (!credentialsAvailable) return;
+
     const loadGapiAndGis = () => {
       // Load gapi script
       const gapiScript = document.createElement('script');
@@ -49,11 +64,11 @@ const GoogleSlidesButton = ({ slides, setNotification }) => {
     };
 
     loadGapiAndGis();
-  }, []);
+  }, [credentialsAvailable]);
 
   // Initialize tokenClient when both libraries are loaded
   useEffect(() => {
-    if (gapiLoaded && gisLoaded) {
+    if (gapiLoaded && gisLoaded && credentialsAvailable) {
       setTokenClient(
         window.google.accounts.oauth2.initTokenClient({
           client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
@@ -63,7 +78,7 @@ const GoogleSlidesButton = ({ slides, setNotification }) => {
         })
       );
     }
-  }, [gapiLoaded, gisLoaded]);
+  }, [gapiLoaded, gisLoaded, credentialsAvailable]);
 
   const exportToGoogleSlides = async () => {
     try {
@@ -73,16 +88,6 @@ const GoogleSlidesButton = ({ slides, setNotification }) => {
       if (!gapiLoaded || !gisLoaded || !tokenClient) {
         throw new Error(
           'Google API libraries are not fully loaded yet. Please try again.'
-        );
-      }
-
-      // Check if environment variables are available
-      const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
-      const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-
-      if (!googleApiKey || !googleClientId) {
-        throw new Error(
-          'Google API credentials are missing. Please check your environment variables.'
         );
       }
 
@@ -193,33 +198,48 @@ const GoogleSlidesButton = ({ slides, setNotification }) => {
 
   const getExportButtonText = () => {
     if (isExporting) return 'Exporting...';
+    if (!credentialsAvailable) return 'Export Unavailable';
     if (!gapiLoaded || !gisLoaded) return 'Loading...';
     return 'Export to Google Slides';
   };
 
+  const getButtonTooltip = () => {
+    if (!credentialsAvailable) {
+      return 'Google API credentials are missing. Export to Google Slides is unavailable.';
+    }
+    if (slides?.length === 0) {
+      return 'No slides available to export';
+    }
+    return 'Export your slides to Google Slides';
+  };
+
   return (
-    <Button
-      startIcon={
-        isExporting ? (
-          <CircularProgress size={16} color="inherit" />
-        ) : (
-          <CloudUploadIcon />
-        )
-      }
-      onClick={exportToGoogleSlides}
-      disabled={
-        isExporting || slides?.length === 0 || !gapiLoaded || !gisLoaded
-      }
-      sx={{
-        color: styles.slideTitleProps?.color || '#AC92FF',
-        backgroundColor: '#2A1B4A',
-        '&:hover': { backgroundColor: '#3A2B5A' },
-        borderRadius: '6px',
-        padding: '6px 16px',
-      }}
-    >
-      {getExportButtonText()}
-    </Button>
+    <Tooltip title={getButtonTooltip()}>
+      <span>
+        <Button
+          startIcon={
+            isExporting ? (
+              <CircularProgress size={16} color="inherit" />
+            ) : (
+              <CloudUploadIcon />
+            )
+          }
+          onClick={exportToGoogleSlides}
+          disabled={
+            isExporting || slides?.length === 0 || !gapiLoaded || !gisLoaded || !credentialsAvailable
+          }
+          sx={{
+            color: styles.slideTitleProps?.color || '#AC92FF',
+            backgroundColor: '#2A1B4A',
+            '&:hover': { backgroundColor: '#3A2B5A' },
+            borderRadius: '6px',
+            padding: '6px 16px',
+          }}
+        >
+          {getExportButtonText()}
+        </Button>
+      </span>
+    </Tooltip>
   );
 };
 
