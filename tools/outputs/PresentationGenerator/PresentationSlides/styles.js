@@ -6,11 +6,6 @@ const styles = {
       border: 'none',
     },
   },
-  MuiGrid: {
-    root: {
-      backgroundColor: 'red',
-    },
-  },
 };
 
 export default styles;
