@@ -1,6 +1,6 @@
 import { forwardRef, useRef, useState } from 'react';
 
-import { PictureAsPdf } from '@mui/icons-material';
+import { FileUpload } from '@mui/icons-material';
 import {
   CircularProgress,
   IconButton,
@@ -122,7 +122,7 @@ const PrimaryTextAreaInput = forwardRef((props, ref) => {
               },
             }}
           >
-            <PictureAsPdf />
+            <FileUpload />
           </IconButton>
         )}
       </Tooltip>
