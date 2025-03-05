@@ -55,22 +55,23 @@ const PresentationOutliner = ({
   
     if (!destination) return;
   
-  if (
-    destination.droppableId === source.droppableId &&
-    destination.index === source.index
-  ) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) return;
   
     // Create a new array without mutating the original
-  const newSlides = [...slides];
-  // Remove the dragged item
-  const [removed] = newSlides.splice(source.index, 1);
-  // Insert it at the new position
-  newSlides.splice(destination.index, 0, removed);
+    const newSlides = [...slides];
+    // Remove the dragged item
+    const [removed] = newSlides.splice(source.index, 1);
+    // Insert it at the new position
+    newSlides.splice(destination.index, 0, removed);
 
-  // Update state with the new order
-  setSlides(newSlides);
-  setUnsavedChanges(true);
+    // Update state with the new order
+    setSlides(newSlides);
+    setUnsavedChanges(true);
   };
+  
   // Handle "Generate Presentation" button click
   const handleGeneratePresentation = () => {
     console.log("Generating presentation with slides:", slides);
@@ -128,7 +129,6 @@ const PresentationOutliner = ({
           <div
             ref={provided.innerRef}
             {...provided.draggableProps}
-            // {...provided.dragHandleProps}
             style={{
               ...provided.draggableProps.style,
               width: "100%",
@@ -138,24 +138,24 @@ const PresentationOutliner = ({
               opacity: snapshot.isDragging ? 0.6 : 1,
               background: snapshot.isDragging ? "#2A1B4A" : "transparent",
               transform: snapshot.isDragging 
-              ? `${provided.draggableProps.style.transform} scale(1.02)`
-              : provided.draggableProps.style.transform,
-            transition: "background 0.2s ease, transform 0.2s ease",
-            userSelect: "none",
+                ? `${provided.draggableProps.style.transform} scale(1.02)`
+                : provided.draggableProps.style.transform,
+              transition: "background 0.2s ease, transform 0.2s ease",
+              userSelect: "none",
             }}
           >
-             <div 
-            {...provided.dragHandleProps}
-            style={{ 
-              cursor: snapshot.isDragging ? 'grabbing' : 'grab',
-              padding: '8px',
-              color: '#AC92FF',
-               display: 'flex',
-              alignItems: 'center'
-            }}
-          >
-            ⋮⋮
-          </div>
+            <div 
+              {...provided.dragHandleProps}
+              style={{ 
+                cursor: snapshot.isDragging ? 'grabbing' : 'grab',
+                padding: '8px',
+                color: '#AC92FF',
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
+              ⋮⋮
+            </div>
             <div style={{ flex: 1 }}>
               <Accordion
                 sx={{
@@ -185,11 +185,15 @@ const PresentationOutliner = ({
                 >
                   <Grid container alignItems="center" spacing={2}>
                     <Grid item>
-                      <Typography {...styles.slideNumberProps}>
+                      <Typography 
+                        fontFamily={styles.slideNumberProps.fontFamily}
+                        fontSize={styles.slideNumberProps.fontSize}
+                        color={styles.slideNumberProps.color}
+                      >
                         {index + 1}.
                       </Typography>
                     </Grid>
-                    <Grid item xs>
+                    <Grid item xs={12}>
                       <TextField
                         value={title}
                         onChange={(e) =>
@@ -288,19 +292,20 @@ const PresentationOutliner = ({
     return (
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="slides">
-          {(provided,snapshot) => (
+          {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
               {...provided.droppableProps}
-              // {...styles.slidesGridProps}
               style={{
                 width: "100%",
                 display: "flex",
                 flexDirection: "column",
                 gap: "16px",
-                minHeight: snapshot.isDraggingOver ? "100vh" : "auto",
-              transition: "background-color 0.2s ease",
-              backgroundColor: snapshot.isDraggingOver ? "rgba(42, 27, 74, 0.1)" : "transparent"
+                maxHeight: "calc(100vh - 250px)",
+                overflowY: "auto",
+                padding: "8px",
+                transition: "background-color 0.2s ease",
+                backgroundColor: snapshot.isDraggingOver ? "rgba(42, 27, 74, 0.1)" : "transparent"
               }}
             >
               {slides.map((slide, index) => renderSlide(slide, index))}
@@ -315,8 +320,15 @@ const PresentationOutliner = ({
   return (
     <div style={{ position: "relative", width: "100%" }}>
       <Fade in>
-        <Grid container item xs={12} direction="column" width="100%">
-          <Typography {...styles.presentationTitleProps}>
+        <Grid container item xs={12} direction="column" style={{ width: "100%" }}>
+          <Typography 
+            fontFamily={styles.presentationTitleProps.fontFamily}
+            fontSize={styles.presentationTitleProps.fontSize}
+            color={styles.presentationTitleProps.color}
+            alignSelf={styles.presentationTitleProps.alignSelf}
+            width={styles.presentationTitleProps.width}
+            mb={styles.presentationTitleProps.mb}
+          >
             Presentation Detail
           </Typography>
 
@@ -336,7 +348,11 @@ const PresentationOutliner = ({
           )}
 
           {/* Add new control buttons */}
-          <Grid {...styles.actionButtonGridProps}>
+          <Grid 
+            container 
+            justifyContent="flex-end"
+            mt={4}
+          >
             <Grid item>
               <Button
                 onClick={handleGeneratePresentation}
@@ -356,7 +372,6 @@ const PresentationOutliner = ({
         sx={{
           position: "fixed",
           bottom: "4rem",
-          // right: '30rem',
           right: { desktop: "10rem", desktopMedium: "15rem", laptop: "5rem" },
           zIndex: 1000,
         }}

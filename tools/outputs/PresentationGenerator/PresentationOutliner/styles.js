@@ -10,7 +10,7 @@ const styles = {
   slidesGridProps: {
     container: true,
     item: true,
-    mobileSmall: 12,
+    xs: 12,
     justifyContent: "flex-start",
     alignItems: "center",
     rowGap: 3,
@@ -18,7 +18,7 @@ const styles = {
   slideGridProps: {
     container: true,
     item: true,
-    mobileSmall: 12,
+    xs: 12,
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
@@ -85,9 +85,9 @@ const styles = {
     },
   },
   actionButtonGridProps: {
-    container: true,
+    display: "flex",
     justifyContent: "flex-end", // Align the button to the bottom right
-    mt: 4, // Add margin top for spacing
+    marginTop: 4
   },
   slideControlsContainer: {
     display: "flex",
