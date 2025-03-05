@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {
+  Alert,
   Box,
   Button,
   Fade,
@@ -12,17 +13,29 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Snackbar,
   Typography,
 } from '@mui/material';
 
 import styles from './styles';
 
+import GoogleSlidesButton from '@/tools/components/GoogleSlidesButton/GoogleSlidesButton';
+
 /**
  * PresentationSlides component renders the actual presentation view
  * with navigation controls to move between slides and a sidebar with all slide details
+ * Using modern Google Identity Services for authentication
  */
 const PresentationSlides = ({ slides, onBackToOutliner }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [notification, setNotification] = useState({
+    open: false,
+    message: '',
+    severity: 'info',
+  });
+
+  // Current slide
+  const currentSlide = slides[currentSlideIndex] || { title: '', content: '' };
 
   // Navigate to previous slide
   const handlePrevSlide = () => {
@@ -43,8 +56,10 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
     setCurrentSlideIndex(index);
   };
 
-  // Current slide
-  const currentSlide = slides[currentSlideIndex] || { title: '', content: '' };
+  // Close notification
+  const handleCloseNotification = () => {
+    setNotification({ ...notification, open: false });
+  };
 
   return (
     <Fade in>
@@ -74,7 +89,7 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
             marginBottom: '-62px',
           }}
         >
-          {/* Header with back button */}
+          {/* Header with back button and export button */}
           <Grid
             item
             xs={12}
@@ -82,6 +97,8 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
             sx={{
               backgroundColor: 'transparent',
               border: 'none',
+              display: 'flex',
+              justifyContent: 'space-between',
               ...(styles.slideControlsContainer?.sx || {}),
             }}
           >
@@ -95,6 +112,10 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
             >
               Back to Outliner
             </Button>
+            <GoogleSlidesButton
+              slides={slides}
+              setNotification={setNotification}
+            />
           </Grid>
 
           {/* Main content with sidebar and slide view */}
@@ -149,11 +170,12 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                           <Typography
                             sx={{
                               color: styles.slideTitleProps?.color || '#AC92FF',
-                              fontWeight: currentSlideIndex === index ? 'bold' : 'normal',
+                              fontWeight:
+                                currentSlideIndex === index ? 'bold' : 'normal',
                               width: '100%',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap'
+                              whiteSpace: 'nowrap',
                             }}
                           >
                             {`${index + 1}. ${slide.title}`}
@@ -168,10 +190,13 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                               textOverflow: 'ellipsis',
                               whiteSpace: 'nowrap',
                               width: '200px', // Fixed width
-                              maxWidth: '100%'
+                              maxWidth: '100%',
                             }}
                           >
-                            {slide.content.split(' ').slice(0, 6).join(' ') + '...'}
+                            {`${slide.content
+                              .split(' ')
+                              .slice(0, 6)
+                              .join(' ')}...`}
                           </Typography>
                         }
                       />
@@ -189,7 +214,6 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                 display: 'flex',
                 flexDirection: 'column',
                 padding: 4,
-                backgroundColor: 'transparent',
                 border: 'none',
                 width: '63%',
                 // height: 'auto',
@@ -212,7 +236,7 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                   justifyContent: 'flex-start', // Changed from center
                   textAlign: 'center',
                   mb: 4,
-                  ml:-2,
+                  ml: -2,
                   width: '100%',
                   border: 'none',
                   overflow: 'hidden', // Hide overflow
@@ -288,6 +312,22 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
             </Grid>
           </Grid>
         </Grid>
+
+        {/* Notification for export status */}
+        <Snackbar
+          open={notification.open}
+          autoHideDuration={6000}
+          onClose={handleCloseNotification}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
+          <Alert
+            onClose={handleCloseNotification}
+            severity={notification.severity}
+            sx={{ width: '100%' }}
+          >
+            {notification.message}
+          </Alert>
+        </Snackbar>
       </Box>
     </Fade>
   );
