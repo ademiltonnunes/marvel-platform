@@ -15,10 +15,10 @@ const GoogleSlidesButton = ({ slides, setNotification }) => {
   // Check if required environment variables are available once at component mount
   useEffect(() => {
     const hasCredentials = Boolean(
-      process.env.NEXT_PUBLIC_GOOGLE_API_KEY && 
-      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+      process.env.NEXT_PUBLIC_GOOGLE_API_KEY &&
+        process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
     );
-    
+
     setCredentialsAvailable(hasCredentials);
   }, []);
 
@@ -172,7 +172,6 @@ const GoogleSlidesButton = ({ slides, setNotification }) => {
             severity: 'success',
           });
         } catch (error) {
-          console.error('Error creating presentation:', error);
           setNotification({
             open: true,
             message: `Failed to create presentation: ${error.message}`,
@@ -186,7 +185,6 @@ const GoogleSlidesButton = ({ slides, setNotification }) => {
       // Request an access token with immediate callback
       tokenClient.requestAccessToken({ prompt: '' });
     } catch (error) {
-      console.error('Error exporting to Google Slides:', error);
       setNotification({
         open: true,
         message: `Failed to export: ${error.message}`,
@@ -226,7 +224,11 @@ const GoogleSlidesButton = ({ slides, setNotification }) => {
           }
           onClick={exportToGoogleSlides}
           disabled={
-            isExporting || slides?.length === 0 || !gapiLoaded || !gisLoaded || !credentialsAvailable
+            isExporting ||
+            slides?.length === 0 ||
+            !gapiLoaded ||
+            !gisLoaded ||
+            !credentialsAvailable
           }
           sx={{
             color: styles.slideTitleProps?.color || '#AC92FF',

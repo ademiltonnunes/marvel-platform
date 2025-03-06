@@ -1,15 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { Button, Fade, Grid, TextField, Typography, Fab } from "@mui/material";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { useSelector } from "react-redux";
-import AddIcon from "@mui/icons-material/Add";
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AddIcon from '@mui/icons-material/Add';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Fab,
+  Fade,
+  Grid,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { useSelector } from 'react-redux';
 
-import styles from "./styles";
+import styles from './styles';
 
-import UnsavedChangesAlert from "@/tools/components/UnsavedChangesAlert";
+import UnsavedChangesAlert from '@/tools/components/UnsavedChangesAlert';
 
 /**
  * PresentationOutliner component renders a list of slides with their titles and content.
@@ -34,9 +43,6 @@ const PresentationOutliner = ({
     }
   }, [response, slides, setSlides, setOriginalSlides]);
 
-  // Log the slides to verify the data
-  console.log("Slides:", slides);
-
   // Handle editing of slide title or content
   const handleEditSlide = (index, field, value) => {
     const updatedSlides = slides.map((slide, i) => {
@@ -52,14 +58,15 @@ const PresentationOutliner = ({
   // Handle reordering of slides
   const handleDragEnd = (result) => {
     const { destination, source } = result;
-  
+
     if (!destination) return;
-  
+
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
-    ) return;
-  
+    )
+      return;
+
     // Create a new array without mutating the original
     const newSlides = [...slides];
     // Remove the dragged item
@@ -71,17 +78,16 @@ const PresentationOutliner = ({
     setSlides(newSlides);
     setUnsavedChanges(true);
   };
-  
+
   // Handle "Generate Presentation" button click
   const handleGeneratePresentation = () => {
-    console.log("Generating presentation with slides:", slides);
     onGeneratePresentation(slides); // Call the parent component function to switch view
   };
 
   const handleAddSlide = () => {
     const newSlide = {
-      title: "New Slide",
-      content: "Add your content here",
+      title: 'New Slide',
+      content: 'Add your content here',
     };
     setSlides([...slides, newSlide]);
     setUnsavedChanges(true);
@@ -97,7 +103,7 @@ const PresentationOutliner = ({
     setOriginalSlides([...slides]);
     setUnsavedChanges(false);
     // TODO: Add API call to save changes
-    console.log("Saving changes:", slides);
+    console.log('Saving changes:', slides);
   };
 
   const handleRevertChanges = () => {
@@ -131,61 +137,32 @@ const PresentationOutliner = ({
             {...provided.draggableProps}
             style={{
               ...provided.draggableProps.style,
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              gap: "16px",
+              ...styles.draggableItemProps.sx,
               opacity: snapshot.isDragging ? 0.6 : 1,
-              background: snapshot.isDragging ? "#2A1B4A" : "transparent",
-              transform: snapshot.isDragging 
+              background: snapshot.isDragging ? '#2A1B4A' : 'transparent',
+              transform: snapshot.isDragging
                 ? `${provided.draggableProps.style.transform} scale(1.02)`
                 : provided.draggableProps.style.transform,
-              transition: "background 0.2s ease, transform 0.2s ease",
-              userSelect: "none",
             }}
           >
-            <div 
+            <div
               {...provided.dragHandleProps}
-              style={{ 
+              style={{
+                ...styles.dragHandleProps.sx,
                 cursor: snapshot.isDragging ? 'grabbing' : 'grab',
-                padding: '8px',
-                color: '#AC92FF',
-                display: 'flex',
-                alignItems: 'center'
               }}
             >
               ⋮⋮
             </div>
             <div style={{ flex: 1 }}>
-              <Accordion
-                sx={{
-                  width: "100%",
-                  bgcolor: "#1C1233",
-                  color: "white",
-                  "& .MuiAccordionSummary-root": {
-                    color: "white",
-                  },
-                  "& .MuiAccordionDetails-root": {
-                    color: "white",
-                  },
-                  "& .MuiSvgIcon-root": {
-                    color: "rgba(105, 73, 255, 1)",
-                  },
-                }}
-              >
+              <Accordion sx={styles.accordionProps.sx}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    "& .MuiAccordionSummary-content": {
-                      margin: "12px 0",
-                    },
-                  }}
+                  sx={styles.accordionSummaryProps.sx}
                 >
                   <Grid container alignItems="center" spacing={2}>
                     <Grid item>
-                      <Typography 
+                      <Typography
                         fontFamily={styles.slideNumberProps.fontFamily}
                         fontSize={styles.slideNumberProps.fontSize}
                         color={styles.slideNumberProps.color}
@@ -197,26 +174,22 @@ const PresentationOutliner = ({
                       <TextField
                         value={title}
                         onChange={(e) =>
-                          handleEditSlide(index, "title", e.target.value)
+                          handleEditSlide(index, 'title', e.target.value)
                         }
                         fullWidth
                         sx={{
                           ...styles.slideTitleProps?.sx,
-                          "& .MuiInputBase-input": {
-                            padding: "0px 8px",
-                            width: "100%", // Ensure full width
-                            minWidth: "300px", // Set minimum width
-                          },
-                          "& .MuiInputBase-root": {
-                            width: "100%", // Ensure the input container is full width
-                          },
+                          '& .MuiInputBase-input':
+                            styles.slideTextFieldInputProps.sx,
+                          '& .MuiInputBase-root':
+                            styles.slideTextFieldRootProps.sx,
                         }}
                         InputProps={{
                           sx: {
                             color: styles.slideTitleProps?.color,
                             fontFamily: styles.slideTitleProps?.fontFamily,
                             fontSize: styles.slideTitleProps?.fontSize,
-                            width: "100%", // Ensure the input wrapper is full width
+                            ...styles.slideTextFieldWrapperProps.sx,
                           },
                         }}
                         onClick={(e) => e.stopPropagation()}
@@ -228,29 +201,20 @@ const PresentationOutliner = ({
                   <TextField
                     value={content}
                     onChange={(e) =>
-                      handleEditSlide(index, "content", e.target.value)
+                      handleEditSlide(index, 'content', e.target.value)
                     }
                     fullWidth
                     multiline
                     rows={4}
                     sx={{
                       ...styles.slideContentProps?.sx,
-                      "& .MuiInputBase-root": {
-                        color: "#AC92FF",
-                        backgroundColor: "transparent",
-                      },
-                      "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "rgba(105, 73, 255, 0.3)",
-                      },
-                      "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "rgba(105, 73, 255, 0.5)",
-                      },
+                      ...styles.slideContentTextFieldProps.sx,
                     }}
                     InputProps={{
                       sx: {
-                        color: "white",
                         fontFamily: styles.slideContentProps?.fontFamily,
                         fontSize: styles.slideContentProps?.fontSize,
+                        ...styles.slideContentTextFieldInputProps.sx,
                       },
                     }}
                   />
@@ -262,23 +226,7 @@ const PresentationOutliner = ({
                 e.stopPropagation();
                 handleRemoveSlide(index);
               }}
-              sx={{
-                minWidth: "32px",
-                width: "32px",
-                height: "32px",
-                padding: 0,
-                borderRadius: "50%",
-                color: "#AC92FF",
-                "&:hover": {
-                  backgroundColor: "rgba(172, 146, 255, 0.04)",
-                  color: "#fff",
-                },
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "20px",
-                fontWeight: "bold",
-              }}
+              sx={styles.removeButtonProps.sx}
             >
               ×
             </Button>
@@ -297,15 +245,10 @@ const PresentationOutliner = ({
               ref={provided.innerRef}
               {...provided.droppableProps}
               style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-                maxHeight: "calc(100vh - 250px)",
-                overflowY: "auto",
-                padding: "8px",
-                transition: "background-color 0.2s ease",
-                backgroundColor: snapshot.isDraggingOver ? "rgba(42, 27, 74, 0.1)" : "transparent"
+                ...styles.droppableAreaProps.sx,
+                backgroundColor: snapshot.isDraggingOver
+                  ? 'rgba(42, 27, 74, 0.1)'
+                  : 'transparent',
               }}
             >
               {slides.map((slide, index) => renderSlide(slide, index))}
@@ -318,10 +261,16 @@ const PresentationOutliner = ({
   };
 
   return (
-    <div style={{ position: "relative", width: "100%" }}>
+    <div style={styles.outlineContainerProps.sx}>
       <Fade in>
-        <Grid container item xs={12} direction="column" style={{ width: "100%" }}>
-          <Typography 
+        <Grid
+          container
+          item
+          xs={12}
+          direction="column"
+          style={styles.mainGridProps.sx}
+        >
+          <Typography
             fontFamily={styles.presentationTitleProps.fontFamily}
             fontSize={styles.presentationTitleProps.fontSize}
             color={styles.presentationTitleProps.color}
@@ -348,11 +297,7 @@ const PresentationOutliner = ({
           )}
 
           {/* Add new control buttons */}
-          <Grid 
-            container 
-            justifyContent="flex-end"
-            mt={4}
-          >
+          <Grid container justifyContent="flex-end" mt={4}>
             <Grid item>
               <Button
                 onClick={handleGeneratePresentation}
@@ -369,12 +314,7 @@ const PresentationOutliner = ({
       <Fab
         color="primary"
         onClick={handleAddSlide}
-        sx={{
-          position: "fixed",
-          bottom: "4rem",
-          right: { desktop: "10rem", desktopMedium: "15rem", laptop: "5rem" },
-          zIndex: 1000,
-        }}
+        sx={styles.addButtonProps.sx}
       >
         <AddIcon />
       </Fab>

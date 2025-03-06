@@ -17,9 +17,13 @@ import {
   Typography,
 } from '@mui/material';
 
+// Slide templates
+
 import styles from './styles';
 
 import GoogleSlidesButton from '@/tools/components/GoogleSlidesButton/GoogleSlidesButton';
+import TitleAndBodySlide from '@/tools/components/SlideTemplates/TitleAndBodySlide';
+import TitleSlide from '@/tools/components/SlideTemplates/TitleSlide';
 
 /**
  * PresentationSlides component renders the actual presentation view
@@ -61,54 +65,37 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
     setNotification({ ...notification, open: false });
   };
 
+  // Render the appropriate slide template based on index
+  const renderSlideContent = () => {
+    // First slide uses TitleSlide template
+    if (currentSlideIndex === 0) {
+      return (
+        <TitleSlide
+          title={currentSlide.title}
+          subtitle={currentSlide.content}
+        />
+      );
+    }
+    // All other slides use TitleAndBodySlide template
+    return (
+      <TitleAndBodySlide
+        title={currentSlide.title}
+        body={currentSlide.content}
+      />
+    );
+  };
+
   return (
     <Fade in>
       {/* Main container with forceful style overrides */}
-      <Box
-        sx={{
-          backgroundColor: 'transparent !important',
-          border: 'none !important',
-          '& *': {
-            border: 'none !important',
-          },
-          width: '1440px',
-        }}
-      >
-        <Grid
-          container
-          sx={{
-            width: '80vw',
-            maxWidth: '100%',
-            boxSizing: 'border-box',
-            paddingLeft: '10px',
-            paddingRight: '10px',
-            margin: '0 auto',
-            display: 'flex',
-            border: 'none',
-            marginTop: '-70px',
-            marginBottom: '-62px',
-          }}
-        >
+      <Box sx={styles.mainBoxProps.sx}>
+        <Grid container sx={styles.mainGridContainerProps.sx}>
           {/* Header with back button and export button */}
-          <Grid
-            item
-            xs={12}
-            {...styles.slideControlsContainer}
-            sx={{
-              backgroundColor: 'transparent',
-              border: 'none',
-              display: 'flex',
-              justifyContent: 'space-between',
-              ...(styles.slideControlsContainer?.sx || {}),
-            }}
-          >
+          <Grid item xs={12} sx={styles.slideControlsContainer.sx}>
             <Button
               startIcon={<ArrowBackIcon />}
               onClick={onBackToOutliner}
-              sx={{
-                color: styles.slideTitleProps?.color || '#AC92FF',
-                backgroundColor: 'transparent',
-              }}
+              sx={styles.backButtonProps.sx}
             >
               Back to Outliner
             </Button>
@@ -119,63 +106,31 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
           </Grid>
 
           {/* Main content with sidebar and slide view */}
-          <Grid
-            container
-            item
-            xs={12}
-            sx={{
-              minHeight: '80vh',
-              width: '100%',
-              display: 'flex',
-              backgroundColor: 'transparent',
-              border: 'none',
-            }}
-          >
+          <Grid container item xs={12} sx={styles.contentContainerProps.sx}>
             {/* Sidebar with all slide details */}
-            <Grid
-              item
-              xs={3}
-              sx={{
-                backgroundColor: '#1C1233',
-                borderRadius: '10px 0 0 10px',
-                padding: 2,
-                height: '76.5vh', // Match the main content box height
-                overflowY: 'auto',
-                border: 'none',
-              }}
-            >
+            <Grid item xs={3} sx={styles.sidebarProps.sx}>
               <List sx={{ height: '100%' }}>
                 {slides.map((slide, index) => (
                   <ListItem
                     key={index}
                     disablePadding
                     sx={{
-                      mb: 1,
+                      ...styles.sidebarListItemProps.sx,
                       backgroundColor:
                         currentSlideIndex === index ? '#2A1B4A' : 'transparent',
-                      borderRadius: '6px',
-                      border: 'none',
                     }}
                   >
                     <ListItemButton
                       onClick={() => handleSlideSelect(index)}
-                      sx={{
-                        borderRadius: '6px',
-                        '&:hover': { backgroundColor: '#2A1B4A' },
-                        border: 'none',
-                      }}
+                      sx={styles.sidebarListItemButtonProps.sx}
                     >
                       <ListItemText
                         primary={
                           <Typography
                             sx={{
-                              color: styles.slideTitleProps?.color || '#AC92FF',
+                              ...styles.sidebarListItemTextPrimaryProps.sx,
                               fontWeight:
                                 currentSlideIndex === index ? 'bold' : 'normal',
-                              width: '100%',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
                             }}
                           >
                             {`${index + 1}. ${slide.title}`}
@@ -184,14 +139,7 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                         secondary={
                           <Typography
                             variant="body2"
-                            sx={{
-                              color: styles.slideContentProps?.color || 'white',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
-                              width: '200px', // Fixed width
-                              maxWidth: '100%',
-                            }}
+                            sx={styles.sidebarListItemTextSecondaryProps.sx}
                           >
                             {`${slide.content
                               .split(' ')
@@ -207,65 +155,14 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
             </Grid>
 
             {/* Main slide view */}
-            <Grid
-              item
-              xs={9}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                padding: 4,
-                border: 'none',
-                width: '63%',
-                // height: 'auto',
-                paddingTop: '22px',
-              }}
-            >
+            <Grid item xs={9} sx={styles.slideViewContainerProps.sx}>
               <Typography variant="body1" sx={{ mb: 2 }}>
                 Slide {currentSlideIndex + 1} of {slides.length}
               </Typography>
 
-              {/* Slide content */}
-              <Box
-                sx={{
-                  backgroundColor: '#1C1233',
-                  borderRadius: '0 10px 10px 0',
-                  padding: 4,
-                  height: '60vh', // Fixed height
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start', // Changed from center
-                  textAlign: 'center',
-                  mb: 4,
-                  ml: -2,
-                  width: '100%',
-                  border: 'none',
-                  overflow: 'hidden', // Hide overflow
-                }}
-              >
-                <Typography
-                  variant="h3"
-                  sx={{
-                    mb: 4,
-                    color: styles.slideTitleProps?.color,
-                    fontFamily: styles.slideTitleProps?.fontFamily,
-                    fontSize: styles.slideTitleProps?.fontSize,
-                  }}
-                >
-                  {currentSlide.title}
-                </Typography>
-                <Typography
-                  sx={{
-                    whiteSpace: 'pre-wrap',
-                    color: styles.slideContentProps?.color,
-                    fontFamily: styles.slideContentProps?.fontFamily,
-                    fontSize: styles.slideContentProps?.fontSize,
-                    overflow: 'auto', // Add scrollbar when needed
-                    flex: 1, // Take remaining space
-                    paddingRight: 2, // Space for scrollbar
-                  }}
-                >
-                  {currentSlide.content}
-                </Typography>
+              {/* Slide content container - now uses the appropriate template component */}
+              <Box sx={styles.slideContentContainerProps.sx}>
+                {renderSlideContent()}
               </Box>
 
               {/* Navigation controls */}
@@ -273,22 +170,13 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                 container
                 justifyContent="center"
                 spacing={2}
-                sx={{
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                }}
+                sx={styles.navigationControlsContainerProps.sx}
               >
                 <Grid item>
                   <IconButton
                     onClick={handlePrevSlide}
                     disabled={currentSlideIndex === 0}
-                    sx={{
-                      color: styles.slideTitleProps?.color,
-                      backgroundColor: '#1C1233',
-                      '&:hover': { backgroundColor: '#2A1B4A' },
-                      '&.Mui-disabled': { color: 'text.disabled' },
-                      border: 'none',
-                    }}
+                    sx={styles.navigationButtonProps.sx}
                   >
                     <ArrowBackIcon />
                   </IconButton>
@@ -297,13 +185,7 @@ const PresentationSlides = ({ slides, onBackToOutliner }) => {
                   <IconButton
                     onClick={handleNextSlide}
                     disabled={currentSlideIndex === slides.length - 1}
-                    sx={{
-                      color: styles.slideTitleProps?.color,
-                      backgroundColor: '#1C1233',
-                      '&:hover': { backgroundColor: '#2A1B4A' },
-                      '&.Mui-disabled': { color: 'text.disabled' },
-                      border: 'none',
-                    }}
+                    sx={styles.navigationButtonProps.sx}
                   >
                     <ArrowForwardIcon />
                   </IconButton>

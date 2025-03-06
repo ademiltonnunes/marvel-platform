@@ -29,15 +29,15 @@ const PresentationGenerator = () => {
   };
 
   return (
-    <Grid 
-      container 
-      item 
-      xs={12} 
-      rowGap={4} 
-      px={6} 
-      py={4} 
-      justifyContent="center" 
-      alignItems="center" 
+    <Grid
+      container
+      item
+      xs={12}
+      rowGap={4}
+      px={6}
+      py={4}
+      justifyContent="center"
+      alignItems="center"
       borderRadius="20px"
       sx={styles.mainGridProps.sx}
     >

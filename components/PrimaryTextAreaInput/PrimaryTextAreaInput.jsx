@@ -75,15 +75,25 @@ const PrimaryTextAreaInput = forwardRef((props, ref) => {
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
-      let extractedText = '';
-
-      // Extract text from each page
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const textContent = await page.getTextContent();
-        const textItems = textContent.items.map((item) => item.str);
-        extractedText += `${textItems.join(' ')}\n`;
+      // Using Promise.all to avoid await in loop
+      const pagePromises = [];
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum += 1) {
+        pagePromises.push(
+          pdf
+            .getPage(pageNum)
+            .then((page) =>
+              page
+                .getTextContent()
+                .then((textContent) =>
+                  textContent.items.map((item) => item.str).join(' ')
+                )
+            )
+        );
       }
+
+      // Await all pages to be processed concurrently
+      const pageTexts = await Promise.all(pagePromises);
+      const extractedText = pageTexts.join('\n');
 
       // Set the extracted text to the text area
       setValue(name, extractedText);
@@ -91,9 +101,9 @@ const PrimaryTextAreaInput = forwardRef((props, ref) => {
       // Reset the file input
       event.target.value = null;
       handleOpenSnackBar('success', 'PDF content extracted successfully');
-    } catch (error) {
-      console.error('Error parsing PDF:', error);
-      handleOpenSnackBar('error', 'Failed to extract content from PDF');
+    } catch (err) {
+      // Changed variable name to avoid 'no-shadow' error
+      handleOpenSnackBar('error', 'Failed to extract content from PDF', err);
     } finally {
       setIsUploading(false);
     }

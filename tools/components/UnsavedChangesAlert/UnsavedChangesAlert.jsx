@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Alert, Button, Grid, Snackbar } from '@mui/material';
+import { Alert, Button, Grid } from '@mui/material';
 
 const UnsavedChangesAlert = ({ onSave, onRevert }) => (
-  <Grid container spacing={2} sx={{ marginBottom: 2}}>
+  <Grid container spacing={2} sx={{ marginBottom: 2 }}>
     <Grid item xs={12}>
       <Alert
         severity="warning"

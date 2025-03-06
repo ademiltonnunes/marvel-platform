@@ -1,9 +1,9 @@
-import TitleSlide from './TitleSlide';
+import SectionHeaderSlide from './SectionHeaderSlide';
 import TitleAndBodySlide from './TitleAndBodySlide';
 import TitleAndBulletsSlide from './TitleAndBulletsSlide';
-import TwoColumnSlide from './TwoColumnSlide';
-import SectionHeaderSlide from './SectionHeaderSlide';
 import TitleAndImageSlide from './TitleAndImageSlide';
+import TitleSlide from './TitleSlide';
+import TwoColumnSlide from './TwoColumnSlide';
 
 export {
   TitleSlide,
@@ -11,5 +11,5 @@ export {
   TitleAndBulletsSlide,
   TwoColumnSlide,
   SectionHeaderSlide,
-  TitleAndImageSlide
+  TitleAndImageSlide,
 };

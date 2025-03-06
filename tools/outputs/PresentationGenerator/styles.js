@@ -6,7 +6,7 @@ const styles = {
       color: 'white',
       borderRadius: '20px',
     },
-  }
+  },
 };
 
 export default styles;

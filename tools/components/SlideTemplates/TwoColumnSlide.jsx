@@ -1,10 +1,12 @@
 import React from 'react';
-import { Grid, Typography, List, ListItem } from '@mui/material';
+
+import { Grid, List, ListItem, Typography } from '@mui/material';
+
 import styles from './styles';
 
 /**
  * Two-Column Slide template with a title and two columns of content
- * 
+ *
  * @param {Object} props - Component props
  * @param {string} props.title - Slide title
  * @param {Object} props.leftColumn - Left column data
@@ -16,7 +18,12 @@ import styles from './styles';
  * @param {string} props.branding - Optional branding text
  * @returns {JSX.Element} Two column slide component
  */
-const TwoColumnSlide = ({ title, leftColumn, rightColumn, branding = "Marvel AI" }) => {
+const TwoColumnSlide = ({
+  title,
+  leftColumn,
+  rightColumn,
+  branding = 'Marvel AI',
+}) => {
   const renderContent = (content) => {
     if (Array.isArray(content)) {
       return (
@@ -28,9 +35,8 @@ const TwoColumnSlide = ({ title, leftColumn, rightColumn, branding = "Marvel AI"
           ))}
         </List>
       );
-    } else {
-      return <Typography sx={styles.bodyText}>{content}</Typography>;
     }
+    return <Typography sx={styles.bodyText}>{content}</Typography>;
   };
 
   return (
